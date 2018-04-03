@@ -15,7 +15,19 @@ namespace AutomatedTomatoMasher.app
         {
             var transponder = TransponderReceiverFactory.CreateTransponderDataReceiver();
 
-            
+            transponder.TransponderDataReady += PrintString;
+
+            Console.ReadKey();
+        }
+
+        public static void PrintString(object sender, RawTransponderDataEventArgs a)
+        {
+            var stringList = a.TransponderData;
+
+            foreach (var e in stringList)
+            {
+                Console.WriteLine(e);
+            }
         }
     }
 }
