@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using AutomatedTomatoMasher.library;
+using AutomatedTomatoMasher.library.Interface;
 using NSubstitute;
-using NSubstitute.Exceptions;
 using NUnit.Framework;
 using TransponderReceiver;
 
@@ -17,13 +17,13 @@ namespace AutomatedTomatoMasher.Test.Unit
     {
         private TrackReciever _uut;
         private ITransponderReceiver _transponderReceiver;
-        private IDecoder _decoder;
+        private ITrackObjectifier _decoder;
 
         [SetUp]
         public void SetUp()
         {
             _transponderReceiver = Substitute.For<ITransponderReceiver>();
-            _decoder = Substitute.For<IDecoder>();
+            _decoder = Substitute.For<ITrackObjectifier>();
 
             _uut = new TrackReciever(_transponderReceiver, _decoder);
         }
@@ -40,7 +40,7 @@ namespace AutomatedTomatoMasher.Test.Unit
 
             _transponderReceiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(listReciever));
 
-            _decoder.Received().Decode(listReciever);
+            _decoder.Received().Objectify(listReciever);
         }
 
     }

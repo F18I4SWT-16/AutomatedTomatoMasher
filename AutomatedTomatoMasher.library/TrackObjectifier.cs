@@ -3,29 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutomatedTomatoMasher.library.DTO;
+using AutomatedTomatoMasher.library.Interface;
 
 namespace AutomatedTomatoMasher.library
 {
-    class Decoder : IDecoder
+    public class TrackObjectifier : ITrackObjectifier
     {
         private readonly IDateTimeBuilder _dateTimeBuilder;
         private readonly ITrackTransmitter _trackTransmitter;
 
-        public Decoder(IDateTimeBuilder dateTimeBuilder, ITrackTransmitter trackTransmitter)
+        public TrackObjectifier(IDateTimeBuilder dateTimeBuilder, ITrackTransmitter trackTransmitter)
         {
             _dateTimeBuilder = dateTimeBuilder;
             _trackTransmitter = trackTransmitter;
         }
 
-        public void Decode(List<string> stringList)
+        public void Objectify(List<string> stringList)
         {
-            var decodedTransponderDataList = new List<DecodedTransponderData>();
+            var trackList = new List<Track>();
 
             foreach (var str in stringList)
             {
                 var splitStrings = str.Split(';');
 
-                var decodedTransponderData = new DecodedTransponderData
+                var track = new Track
                 {
                     Tag = splitStrings[0],
                     X = Convert.ToInt32(splitStrings[1]),
@@ -34,10 +36,10 @@ namespace AutomatedTomatoMasher.library
                     TimeStamp = _dateTimeBuilder.Build(splitStrings[4])
                 };
 
-                decodedTransponderDataList.Add(decodedTransponderData);
+                trackList.Add(track);
             }
 
-            _trackTransmitter.Transmit(decodedTransponderDataList);
+            _trackTransmitter.Transmit(trackList);
         }
     }
 }

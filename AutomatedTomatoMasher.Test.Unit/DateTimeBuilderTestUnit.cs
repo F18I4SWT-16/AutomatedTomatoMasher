@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutomatedTomatoMasher.library;
+using AutomatedTomatoMasher.library.Interface;
 using NUnit.Framework;
 
 namespace AutomatedTomatoMasher.Test.Unit
 {
     [TestFixture]
-    public class DateTimeBuilderUnitTest
+    public class DateTimeBuilderTestUnit
     {
         private IDateTimeBuilder _uut;
 
@@ -22,13 +23,10 @@ namespace AutomatedTomatoMasher.Test.Unit
         [Test]
         public void Build_GetDateInString_ReturnDateInDateTime()
         {
-            DateTime _dateInDateTime = new DateTime(1994, 11, 29, 01, 49, 30, 123);
-            string _dateInString = "19941129014930123";
+            DateTime dateInDateTime = new DateTime(1994, 11, 29, 01, 49, 30, 123);
+            string dateInString = "19941129014930123";
 
-            Assert.That(_uut.Build(_dateInString), Is.EqualTo(_dateInDateTime));
+            Assert.That(_uut.Build(dateInString), Is.EqualTo(dateInDateTime));
         }
-
-        
-
     }
 }

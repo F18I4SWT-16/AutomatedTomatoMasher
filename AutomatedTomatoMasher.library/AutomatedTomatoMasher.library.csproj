@@ -45,12 +45,12 @@
   <ItemGroup>
     <Compile Include="AtmController.cs" />
     <Compile Include="DateTimeBuilder.cs" />
-    <Compile Include="DecodedTransponderData.cs" />
-    <Compile Include="DecodedTransponderDataEventArgs.cs" />
-    <Compile Include="Decoder.cs" />
-    <Compile Include="IDecoder.cs" />
-    <Compile Include="IDateTimeBuilder.cs" />
-    <Compile Include="ITrackTransmitter.cs" />
+    <Compile Include="DTO\Track.cs" />
+    <Compile Include="Event\TrackEventArgs.cs" />
+    <Compile Include="TrackObjectifier.cs" />
+    <Compile Include="Interface\ITrackObjectifier.cs" />
+    <Compile Include="Interface\IDateTimeBuilder.cs" />
+    <Compile Include="Interface\ITrackTransmitter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TrackReciever.cs" />
     <Compile Include="TrackTransmitter.cs" />

@@ -4,14 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TransponderReceiver;
-using AutomatedTomatoMasher.libary;
+using AutomatedTomatoMasher.library;
 
 namespace AutomatedTomatoMasher.app
 {
     class Program
     {
-        
-
         static void Main(string[] args)
         {
             AtmController _atmController = new AtmController();

@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using AutomatedTomatoMasher.library.Interface;
 using TransponderReceiver;
 
 namespace AutomatedTomatoMasher.library
 {
     public class TrackReciever
     {
-        private readonly IDecoder _decoder;
+        private readonly ITrackObjectifier _trackObjectifier;
 
 
         public TrackReciever(ITransponderReceiver transponderReciever,
-            IDecoder decoder)
+            ITrackObjectifier objectifier)
         {
-            _decoder = decoder;
+            _trackObjectifier = objectifier;
 
             transponderReciever.TransponderDataReady += HandleTransponderDataReady;
         }
@@ -21,7 +22,7 @@ namespace AutomatedTomatoMasher.library
         {
             var stringList = args.TransponderData;
 
-            _decoder.Decode(stringList);        
+            _trackObjectifier.Objectify(stringList);        
          }
     }
 }

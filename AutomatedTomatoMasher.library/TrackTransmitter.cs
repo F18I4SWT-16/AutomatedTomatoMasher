@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutomatedTomatoMasher.library.DTO;
+using AutomatedTomatoMasher.library.Event;
+using AutomatedTomatoMasher.library.Interface;
 
 namespace AutomatedTomatoMasher.library
 {
-    class TrackTransmitter : ITrackTransmitter
+    public class TrackTransmitter : ITrackTransmitter
     {
-        public event EventHandler<DecodedTransponderDataEventArgs> DecodedTransponderDataReady;
+        public event EventHandler<TrackEventArgs> TrackReady;
 
-        public void Transmit(List<DecodedTransponderData> trackList)
+        public void Transmit(List<Track> trackList)
         {
-            DecodedTransponderDataReady?.Invoke(this, new DecodedTransponderDataEventArgs(trackList));
+            TrackReady?.Invoke(this, new TrackEventArgs(trackList));
         }
 
     }

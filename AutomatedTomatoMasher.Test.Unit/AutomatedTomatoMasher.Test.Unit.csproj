@@ -60,9 +60,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DateTimeBuilderUnitTest.cs" />
+    <Compile Include="DateTimeBuilderTestUnit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TrackRecieverTestUnit.cs" />
+    <Compile Include="TrackTransmitterTestUnit.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
