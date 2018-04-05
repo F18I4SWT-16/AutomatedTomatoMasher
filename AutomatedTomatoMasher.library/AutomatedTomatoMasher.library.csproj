@@ -44,9 +44,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DecodedTransponderData.cs" />
+    <Compile Include="DecodedTransponderDataEventArgs.cs" />
     <Compile Include="IDateTimeBuilder.cs" />
     <Compile Include="ITransponderDecoder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TransponderDecoder.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

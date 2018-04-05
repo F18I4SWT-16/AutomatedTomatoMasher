@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace AutomatedTomatoMasher.library
 {
-    interface ITransponderDecoder
+    public interface ITransponderDecoder
     {
-        DecodedTransponderData Decode();
+        event EventHandler<DecodedTransponderDataEventArgs> DecodedTransponderDataReady;
     }
 }
