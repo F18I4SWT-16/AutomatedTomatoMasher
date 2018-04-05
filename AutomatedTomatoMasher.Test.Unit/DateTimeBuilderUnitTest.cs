@@ -23,7 +23,7 @@ namespace AutomatedTomatoMasher.Test.Unit
         public void Build_GetDateInString_ReturnDateInDateTime()
         {
             DateTime _dateInDateTime = new DateTime(1994, 11, 29, 01, 49, 30, 123);
-            string _dateInString = "1994/11/29/01/49/30/123";
+            string _dateInString = "19941129014930123";
 
             Assert.That(_uut.Build(_dateInString), Is.EqualTo(_dateInDateTime));
         }

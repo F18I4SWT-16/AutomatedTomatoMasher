@@ -13,7 +13,7 @@ namespace AutomatedTomatoMasher.library
         {
             //DateTime _date = DateTime.Parse(date);
             DateTime _date =
-                DateTime.ParseExact(date, "yyyymmddhhmmssfff", CultureInfo.InvariantCulture);
+                DateTime.ParseExact(date, "yyyyMMddHHmmssfff", null);
             return _date;
         }
     }
