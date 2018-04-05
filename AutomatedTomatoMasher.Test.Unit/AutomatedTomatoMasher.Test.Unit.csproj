@@ -63,6 +63,7 @@
     <Compile Include="DateTimeBuilderTestUnit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TrackRecieverTestUnit.cs" />
+    <Compile Include="TrackTestUnit.cs" />
     <Compile Include="TrackTransmitterTestUnit.cs" />
   </ItemGroup>
   <ItemGroup>

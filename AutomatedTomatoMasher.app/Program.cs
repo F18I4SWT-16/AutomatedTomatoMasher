@@ -12,11 +12,17 @@ namespace AutomatedTomatoMasher.app
     {
         static void Main(string[] args)
         {
-            AtmController _atmController = new AtmController();
-
+            var dateTimeBuilder = new DateTimeBuilder();
             var transponderReciever = TransponderReceiverFactory.CreateTransponderDataReceiver();
 
-            transponderReciever.TransponderDataReady += _atmController.PrintString;
+            var trackTransmitter = new TrackTransmitter();
+            var trackObjectifier = new TrackObjectifier(dateTimeBuilder, trackTransmitter);
+
+            var trackReciever = new TrackReciever(transponderReciever, trackObjectifier);
+
+
+            var atm = new AtmController(trackTransmitter);
+
 
             Console.ReadKey();
         }

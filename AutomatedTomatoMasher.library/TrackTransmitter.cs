@@ -17,6 +17,5 @@ namespace AutomatedTomatoMasher.library
         {
             TrackReady?.Invoke(this, new TrackEventArgs(trackList));
         }
-
     }
 }

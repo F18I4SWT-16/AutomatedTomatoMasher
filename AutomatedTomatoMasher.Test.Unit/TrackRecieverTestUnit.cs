@@ -17,19 +17,26 @@ namespace AutomatedTomatoMasher.Test.Unit
     {
         private TrackReciever _uut;
         private ITransponderReceiver _transponderReceiver;
-        private ITrackObjectifier _decoder;
+        private ITrackObjectifier _trackObjectifier;
+        private int _nEventsRecieved;
 
         [SetUp]
         public void SetUp()
         {
+            _nEventsRecieved = 0;
             _transponderReceiver = Substitute.For<ITransponderReceiver>();
-            _decoder = Substitute.For<ITrackObjectifier>();
+            _trackObjectifier = Substitute.For<ITrackObjectifier>();
 
-            _uut = new TrackReciever(_transponderReceiver, _decoder);
+            _uut = new TrackReciever(_transponderReceiver, _trackObjectifier);
+
+            _transponderReceiver.TransponderDataReady += (o, args) =>
+            {
+                _nEventsRecieved++;
+            };
         }
 
         [Test]
-        public void HandleTransponderDataReady_RaiseEvent_EventWasRecieved()
+        public void TrackReciever_RaiseEvent_EventWasRecieved()
         {
             //DateTime _dt = new DateTime(2001, 09, 11, 08, 49, 20, 222);
             //List<DecodedTransponderData> _list = new List<DecodedTransponderData>();
@@ -38,10 +45,25 @@ namespace AutomatedTomatoMasher.Test.Unit
 
             List<string> listReciever = new List<string> {"Unit test"};
 
-            _transponderReceiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(listReciever));
+            _transponderReceiver.TransponderDataReady +=
+                Raise.EventWith(new RawTransponderDataEventArgs(listReciever));
 
-            _decoder.Received().Objectify(listReciever);
+            _trackObjectifier.Received().Objectify(listReciever);
         }
 
+        [Test]
+        public void TrackReciever_RaiseEventTwice_EventWasRecievedTwice()
+        {
+            // Arrange & Act
+            List<string> listReciever = new List<string> {"Unit test"};
+            _transponderReceiver.TransponderDataReady += 
+                Raise.EventWith(new RawTransponderDataEventArgs(listReciever));
+
+            _transponderReceiver.TransponderDataReady +=
+                Raise.EventWith(new RawTransponderDataEventArgs(listReciever));
+
+            // Assert
+            Assert.That(_nEventsRecieved, Is.EqualTo(2));
+        }
     }
 }

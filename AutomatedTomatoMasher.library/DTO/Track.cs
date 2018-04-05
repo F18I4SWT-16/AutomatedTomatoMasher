@@ -9,5 +9,10 @@ namespace AutomatedTomatoMasher.library.DTO
         public int Y { get; set; }
         public int Altitude { get; set; }
         public DateTime TimeStamp { get; set; }
+
+        public string PrintTrack()
+        {
+            return $"Tag: {Tag}, X-coordinate: {X}, Y-coordinate: {Y}, Altitude: {Altitude}, Timestamp: {TimeStamp}";
+        }
     }
 }

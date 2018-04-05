@@ -28,5 +28,15 @@ namespace AutomatedTomatoMasher.Test.Unit
 
             Assert.That(_uut.Build(dateInString), Is.EqualTo(dateInDateTime));
         }
+
+        [Test]
+        public void Build_InvalidDateString_ThrowsException()
+        {
+            // Arrange
+            var testString = "1994112901493012a";
+
+            // Act & assert
+            Assert.Throws<FormatException>(() => _uut.Build(testString));
+        }
     }
 }

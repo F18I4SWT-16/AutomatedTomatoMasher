@@ -3,23 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutomatedTomatoMasher.library.Interface;
 using TransponderReceiver;
 
 namespace AutomatedTomatoMasher.library
 {
     public class AtmController
     {
-        public void PrintString(object sender, RawTransponderDataEventArgs a)
+        private readonly ITrackTransmitter _trackTransmitter;
+
+        public AtmController(ITrackTransmitter trackTransmitter)
         {
-            var stringList = a.TransponderData;
+            _trackTransmitter = trackTransmitter;
 
-            Console.WriteLine(sender.ToString());
-            Console.WriteLine(sender.GetType());
-
-            foreach (var e in stringList)
+            // Temporary code to show functionality
+            _trackTransmitter.TrackReady += (o, args) =>
             {
-                Console.WriteLine(e);
-            }
+                foreach (var track in args.TrackList)
+                {
+                    Console.WriteLine(track.PrintTrack());
+                }
+            };
         }
     }
 }

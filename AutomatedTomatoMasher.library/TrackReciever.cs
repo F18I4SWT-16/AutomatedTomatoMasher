@@ -7,22 +7,20 @@ namespace AutomatedTomatoMasher.library
 {
     public class TrackReciever
     {
-        private readonly ITrackObjectifier _trackObjectifier;
-
-
         public TrackReciever(ITransponderReceiver transponderReciever,
             ITrackObjectifier objectifier)
         {
-            _trackObjectifier = objectifier;
-
-            transponderReciever.TransponderDataReady += HandleTransponderDataReady;
+            transponderReciever.TransponderDataReady += (o, args) =>
+            {
+                objectifier.Objectify(args.TransponderData);
+            };
+            //transponderReciever.TransponderDataReady += HandleTransponderDataReady;
         }
 
-        private void HandleTransponderDataReady(object sender, RawTransponderDataEventArgs args)
-        {
-            var stringList = args.TransponderData;
-
-            _trackObjectifier.Objectify(stringList);        
-         }
+        // Replaced by lambda
+        //private void HandleTransponderDataReady(object sender, RawTransponderDataEventArgs args)
+        //{
+        //    _trackObjectifier.Objectify(args.TransponderData);        
+        // }
     }
 }
