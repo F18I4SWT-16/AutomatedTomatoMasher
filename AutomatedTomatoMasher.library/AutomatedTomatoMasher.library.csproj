@@ -43,6 +43,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AtmController.cs" />
     <Compile Include="DateTimeBuilder.cs" />
     <Compile Include="DecodedTransponderData.cs" />
     <Compile Include="DecodedTransponderDataEventArgs.cs" />

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TransponderReceiver;
+using AutomatedTomatoMasher.libary;
 
 namespace AutomatedTomatoMasher.app
 {
@@ -13,24 +14,15 @@ namespace AutomatedTomatoMasher.app
 
         static void Main(string[] args)
         {
+            AtmController _atmController = new AtmController();
+
             var transponderReciever = TransponderReceiverFactory.CreateTransponderDataReceiver();
 
-            transponderReciever.TransponderDataReady += PrintString;
+            transponderReciever.TransponderDataReady += _atmController.PrintString;
 
             Console.ReadKey();
         }
 
-        public static void PrintString(object sender, RawTransponderDataEventArgs a)
-        {
-            var stringList = a.TransponderData;
 
-            Console.WriteLine(sender.ToString());
-            Console.WriteLine(sender.GetType());
-            
-            foreach (var e in stringList)
-            { 
-                Console.WriteLine(e);
-            }
-        }
     }
 }
