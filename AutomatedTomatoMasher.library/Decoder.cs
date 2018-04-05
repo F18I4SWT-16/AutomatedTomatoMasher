@@ -1,26 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using TransponderReceiver;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace AutomatedTomatoMasher.library
 {
-    public class TransponderDecoder : ITransponderDecoder
+    class Decoder : IDecoder
     {
-        public event EventHandler<DecodedTransponderDataEventArgs> DecodedTransponderDataReady;
-
         private readonly IDateTimeBuilder _dateTimeBuilder;
+        private readonly ITrackTransmitter _trackTransmitter;
 
-        public TransponderDecoder(ITransponderReceiver transponderReciever,
-            IDateTimeBuilder dateTimeBuilder)
+        public Decoder(IDateTimeBuilder dateTimeBuilder, ITrackTransmitter trackTransmitter)
         {
             _dateTimeBuilder = dateTimeBuilder;
-
-            transponderReciever.TransponderDataReady += Decode;
+            _trackTransmitter = trackTransmitter;
         }
 
-        private void Decode(object sender, RawTransponderDataEventArgs args)
+        public void Decode(List<string> stringList)
         {
-            var stringList = args.TransponderData;
             var decodedTransponderDataList = new List<DecodedTransponderData>();
 
             foreach (var str in stringList)
@@ -39,7 +37,7 @@ namespace AutomatedTomatoMasher.library
                 decodedTransponderDataList.Add(decodedTransponderData);
             }
 
-            DecodedTransponderDataReady?.Invoke(this, new DecodedTransponderDataEventArgs(decodedTransponderDataList));
+            _trackTransmitter.Transmit(decodedTransponderDataList);
         }
     }
 }

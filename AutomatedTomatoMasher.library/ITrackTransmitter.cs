@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AutomatedTomatoMasher.library
 {
-    public interface ITransponderDecoder
+    public interface ITrackTransmitter
     {
         event EventHandler<DecodedTransponderDataEventArgs> DecodedTransponderDataReady;
+
+        void Transmit(List<DecodedTransponderData> trackList);
     }
 }

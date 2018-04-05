@@ -51,5 +51,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AutomatedTomatoMasher.library\AutomatedTomatoMasher.library.csproj">
+      <Project>{41a3b378-6200-48df-bc2b-28788169a58c}</Project>
+      <Name>AutomatedTomatoMasher.library</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
