@@ -20,7 +20,7 @@ namespace AutomatedTomatoMasher.Test.Unit
         public void SetUp()
         {
             _nEventsRaised = 0;
-            _uut = new TrackTransmitter();
+            //_uut = new TrackTransmitter();
 
             _uut.TrackReady += (o, args) =>
             {
@@ -37,7 +37,7 @@ namespace AutomatedTomatoMasher.Test.Unit
             var trackList = new List<Track>() { track };
 
             // Act
-            _uut.Transmit(trackList);
+            //_uut.Transmit(trackList);
 
             // Assert   
             Assert.That(trackList, Is.EqualTo(_tracksTransmitted));

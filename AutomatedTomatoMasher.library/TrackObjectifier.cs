@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutomatedTomatoMasher.library.DTO;
+using AutomatedTomatoMasher.library.Event;
 using AutomatedTomatoMasher.library.Interface;
 
 namespace AutomatedTomatoMasher.library
@@ -11,12 +12,13 @@ namespace AutomatedTomatoMasher.library
     public class TrackObjectifier : ITrackObjectifier
     {
         private readonly IDateTimeBuilder _dateTimeBuilder;
-        private readonly ITrackTransmitter _trackTransmitter;
+        //private readonly ITrackTransmitter _trackTransmitter;
+        public event EventHandler<ObjectifierTrackEventArgs> TrackReady;
 
-        public TrackObjectifier(IDateTimeBuilder dateTimeBuilder, ITrackTransmitter trackTransmitter)
+        public TrackObjectifier(IDateTimeBuilder dateTimeBuilder)
         {
             _dateTimeBuilder = dateTimeBuilder;
-            _trackTransmitter = trackTransmitter;
+            //_trackTransmitter = trackTransmitter;
         }
 
         public void Objectify(List<string> stringList)
@@ -39,7 +41,8 @@ namespace AutomatedTomatoMasher.library
                 trackList.Add(track);
             }
 
-            _trackTransmitter.Transmit(trackList);
+            TrackReady?.Invoke(this, new ObjectifierTrackEventArgs(trackList));
+            //_trackTransmitter.Transmit(trackList);
         }
     }
 }

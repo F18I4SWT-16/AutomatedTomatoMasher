@@ -4,11 +4,11 @@ using AutomatedTomatoMasher.library.DTO;
 
 namespace AutomatedTomatoMasher.library.Event
 {
-    public class TrackEventArgs : EventArgs
+    public class TransmitterTrackEventArgs : EventArgs
     {
         public List<Track> TrackList { get; }
 
-        public TrackEventArgs(List<Track> trackList)
+        public TransmitterTrackEventArgs(List<Track> trackList)
         {
             TrackList = trackList;
         }
