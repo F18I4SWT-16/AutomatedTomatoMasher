@@ -10,14 +10,10 @@ namespace AutomatedTomatoMasher.library
 {
     public class AtmController
     {
-        private readonly ITrackTransmitter _trackTransmitter;
-
         public AtmController(ITrackTransmitter trackTransmitter)
         {
-            _trackTransmitter = trackTransmitter;
-
             // Temporary code to show functionality
-            _trackTransmitter.TrackReady += (o, args) =>
+            trackTransmitter.TrackReady += (o, args) =>
             {
                 foreach (var track in args.TrackList)
                 {

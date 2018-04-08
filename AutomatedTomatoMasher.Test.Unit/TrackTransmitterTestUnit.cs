@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutomatedTomatoMasher.library;
 using AutomatedTomatoMasher.library.DTO;
+using AutomatedTomatoMasher.library.Event;
 using AutomatedTomatoMasher.library.Interface;
 using NSubstitute;
 using NUnit.Framework;
@@ -38,7 +39,7 @@ namespace AutomatedTomatoMasher.Test.Unit
         public void Transmit_TransmitTrackList_TrackListTransmitted()
         {
             // Arrange
-            var _trackList = new List<Track>() {
+            var trackList = new List<Track>() {
                 new Track()
                 {
                     Tag = "ATR423",
@@ -50,10 +51,10 @@ namespace AutomatedTomatoMasher.Test.Unit
             };
 
             // Act
-
+            _uut.TrackReady += Raise.EventWith(new TransmitterTrackEventArgs(trackList));
 
             // Assert   
-            Assert.That(_trackList, Is.EqualTo(_tracksTransmitted));
+            Assert.That(trackList, Is.EqualTo(_tracksTransmitted));
         }
 
         //[Test]

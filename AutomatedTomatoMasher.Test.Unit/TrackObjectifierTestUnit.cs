@@ -36,8 +36,8 @@ namespace AutomatedTomatoMasher.Test.Unit
         public void Objectify_TransmitIsCalledWithCorrectList()
         {
             //Arrange
-            var _stringList = new List<string>() {"ATR423;39045;12932;14000;20151006213456789"};
-            var _trackList = new List<Track>() {
+            var stringList = new List<string>() {"ATR423;39045;12932;14000;20151006213456789"};
+            var trackList = new List<Track>() {
                 new Track()
             {
                 Tag = "ATR423",
@@ -50,14 +50,14 @@ namespace AutomatedTomatoMasher.Test.Unit
             _dateTimeBuilder.Build("20151006213456789").Returns(new DateTime(2015, 10, 06, 21, 34, 56, 789));
 
             //Act
-            _uut.Objectify(_stringList);
+            _uut.Objectify(stringList);
             
             //Assert
-            Assert.That(_trackList[0].Tag, Is.EqualTo(_tracksTransmitted[0].Tag));
-            Assert.That(_trackList[0].X, Is.EqualTo(_tracksTransmitted[0].X));
-            Assert.That(_trackList[0].Y, Is.EqualTo(_tracksTransmitted[0].Y));
-            Assert.That(_trackList[0].Altitude, Is.EqualTo(_tracksTransmitted[0].Altitude));
-            Assert.That(_trackList[0].TimeStamp, Is.EqualTo(_tracksTransmitted[0].TimeStamp));
+            Assert.That(trackList[0].Tag, Is.EqualTo(_tracksTransmitted[0].Tag));
+            Assert.That(trackList[0].X, Is.EqualTo(_tracksTransmitted[0].X));
+            Assert.That(trackList[0].Y, Is.EqualTo(_tracksTransmitted[0].Y));
+            Assert.That(trackList[0].Altitude, Is.EqualTo(_tracksTransmitted[0].Altitude));
+            Assert.That(trackList[0].TimeStamp, Is.EqualTo(_tracksTransmitted[0].TimeStamp));
         }
     }
 }
