@@ -7,8 +7,8 @@ namespace AutomatedTomatoMasher.library.Interface
 {
     public interface ITrackTransmitter
     {
-        event EventHandler<TrackEventArgs> TrackReady;
+        event EventHandler<TransmitterTrackEventArgs> TrackReady;
 
-        void Transmit(List<Track> trackList);
+        //void Transmit();
     }
 }

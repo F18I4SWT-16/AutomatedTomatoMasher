@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using AutomatedTomatoMasher.library;
 using AutomatedTomatoMasher.library.DTO;
+using AutomatedTomatoMasher.library.Interface;
+using NSubstitute;
 using NUnit.Framework;
 
 namespace AutomatedTomatoMasher.Test.Unit
@@ -14,13 +16,16 @@ namespace AutomatedTomatoMasher.Test.Unit
     {
         private TrackTransmitter _uut;
         private List<Track> _tracksTransmitted;
+        private ITrackObjectifier _trackObjectifier;
         private int _nEventsRaised;
 
         [SetUp]
         public void SetUp()
         {
             _nEventsRaised = 0;
-            _uut = new TrackTransmitter();
+            _trackObjectifier = Substitute.For<ITrackObjectifier>();
+
+            _uut = new TrackTransmitter(_trackObjectifier);
 
             _uut.TrackReady += (o, args) =>
             {
@@ -33,14 +38,22 @@ namespace AutomatedTomatoMasher.Test.Unit
         public void Transmit_TransmitTrackList_TrackListTransmitted()
         {
             // Arrange
-            var track = new Track() { Tag = "1", Altitude = 1, TimeStamp = new DateTime().Date, X = 1, Y = 1 };
-            var trackList = new List<Track>() { track };
+            var _trackList = new List<Track>() {
+                new Track()
+                {
+                    Tag = "ATR423",
+                    X = 39045,
+                    Y = 12932,
+                    Altitude = 14000,
+                    TimeStamp = new DateTime(2015, 10, 06, 21, 34, 56, 789)
+                }
+            };
 
             // Act
-            _uut.Transmit(trackList);
+
 
             // Assert   
-            Assert.That(trackList, Is.EqualTo(_tracksTransmitted));
+            Assert.That(_trackList, Is.EqualTo(_tracksTransmitted));
         }
 
         //[Test]

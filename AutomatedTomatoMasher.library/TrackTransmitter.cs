@@ -11,11 +11,21 @@ namespace AutomatedTomatoMasher.library
 {
     public class TrackTransmitter : ITrackTransmitter
     {
-        public event EventHandler<TrackEventArgs> TrackReady;
+        public event EventHandler<TransmitterTrackEventArgs> TrackReady;
+        private ITrackObjectifier _trackObjectifier;
 
-        public void Transmit(List<Track> trackList)
+        public TrackTransmitter(ITrackObjectifier trackObjectifier)
         {
-            TrackReady?.Invoke(this, new TrackEventArgs(trackList));
+            _trackObjectifier = trackObjectifier;
+            Transmit();
+        }
+
+        private void Transmit()
+        {
+            _trackObjectifier.TrackReady += (o, args) =>
+            {
+                TrackReady?.Invoke(this, new TransmitterTrackEventArgs(args.TrackList));
+            };
         }
     }
 }
