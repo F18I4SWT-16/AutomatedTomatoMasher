@@ -12,7 +12,6 @@ namespace AutomatedTomatoMasher.library
     {
         public DateTime Build(string date)
         {
-            //DateTime _date = DateTime.Parse(date);
             DateTime dateTime =
                 DateTime.ParseExact(date, "yyyyMMddHHmmssfff", null);
             return dateTime;
