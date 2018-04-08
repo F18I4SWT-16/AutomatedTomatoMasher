@@ -47,6 +47,7 @@ namespace AutomatedTomatoMasher.Test.Unit
                 TimeStamp = new DateTime(2015, 10, 06, 21, 34, 56, 789)
             }
             };
+            _dateTimeBuilder.Build("20151006213456789").Returns(new DateTime(2015, 10, 06, 21, 34, 56, 789));
 
             //Act
             _uut.Objectify(_stringList);
