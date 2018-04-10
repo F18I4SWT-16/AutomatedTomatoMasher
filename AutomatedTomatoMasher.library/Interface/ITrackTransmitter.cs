@@ -9,6 +9,6 @@ namespace AutomatedTomatoMasher.library.Interface
     {
         event EventHandler<TransmitterTrackEventArgs> TrackReady;
 
-        //void Transmit();
+        void Transmit(List<Track> track);
     }
 }

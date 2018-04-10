@@ -8,11 +8,11 @@ namespace AutomatedTomatoMasher.library
     public class TrackReciever
     {
         public TrackReciever(ITransponderReceiver transponderReciever,
-            ITrackObjectifier objectifier)
+            ITrackObjectifier objectifier, ITrackTransmitter trackTransmitter)
         {
             transponderReciever.TransponderDataReady += (o, args) =>
             {
-                objectifier.Objectify(args.TransponderData);
+                trackTransmitter.Transmit(objectifier.Objectify(args.TransponderData));
             };
             //transponderReciever.TransponderDataReady += HandleTransponderDataReady;
         }
