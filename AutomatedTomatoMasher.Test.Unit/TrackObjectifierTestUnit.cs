@@ -17,7 +17,6 @@ namespace AutomatedTomatoMasher.Test.Unit
     {
         private ITrackObjectifier _uut;
         private IDateTimeBuilder _dateTimeBuilder;
-        private List<Track> _tracksTransmitted;
         private Track _track;
 
         [SetUp]
@@ -25,11 +24,7 @@ namespace AutomatedTomatoMasher.Test.Unit
         {
             _dateTimeBuilder = Substitute.For<IDateTimeBuilder>(); //skal evt være den rigtige, da man ellers ikke kan få konverteret dato
             _uut = new TrackObjectifier(_dateTimeBuilder);
-            _uut.TrackReady += (o, args) =>
-            {
-                _tracksTransmitted = args.TrackList;
-            };
-
+            
         }
         
         [Test]
@@ -49,15 +44,14 @@ namespace AutomatedTomatoMasher.Test.Unit
             };
             _dateTimeBuilder.Build("20151006213456789").Returns(new DateTime(2015, 10, 06, 21, 34, 56, 789));
 
-            //Act
-            _uut.Objectify(stringList);
-            
-            //Assert
-            Assert.That(trackList[0].Tag, Is.EqualTo(_tracksTransmitted[0].Tag));
-            Assert.That(trackList[0].X, Is.EqualTo(_tracksTransmitted[0].X));
-            Assert.That(trackList[0].Y, Is.EqualTo(_tracksTransmitted[0].Y));
-            Assert.That(trackList[0].Altitude, Is.EqualTo(_tracksTransmitted[0].Altitude));
-            Assert.That(trackList[0].TimeStamp, Is.EqualTo(_tracksTransmitted[0].TimeStamp));
+            //Act and Assert
+            Assert.That(trackList[0].Tag, Is.EqualTo(_uut.Objectify(stringList)[0].Tag));
+            Assert.That(trackList[0].X, Is.EqualTo(_uut.Objectify(stringList)[0].X));
+            Assert.That(trackList[0].Y, Is.EqualTo(_uut.Objectify(stringList)[0].Y));
+            Assert.That(trackList[0].Altitude, Is.EqualTo(_uut.Objectify(stringList)[0].Altitude));
+            Assert.That(trackList[0].TimeStamp, Is.EqualTo(_uut.Objectify(stringList)[0].TimeStamp));
+
+            Assert.That(trackList, Is.EqualTo(_uut.Objectify(stringList)));
         }
     }
 }
