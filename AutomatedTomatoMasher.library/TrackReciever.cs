@@ -14,13 +14,6 @@ namespace AutomatedTomatoMasher.library
             {
                 trackTransmitter.Transmit(objectifier.Objectify(args.TransponderData));
             };
-            //transponderReciever.TransponderDataReady += HandleTransponderDataReady;
         }
-
-        // Replaced by lambda
-        //private void HandleTransponderDataReady(object sender, RawTransponderDataEventArgs args)
-        //{
-        //    _trackObjectifier.Objectify(args.TransponderData);        
-        // }
     }
 }
