@@ -43,32 +43,22 @@ namespace AutomatedTomatoMasher.Test.Unit
         {
             // Arrange
             List<string> listReciever = new List<string> {"Unit test"};
-            //List<Track> trackList = new List<Track>
-            //{
-            //    new Track()
-            //    {
-            //        Tag = "ATR423",
-            //        X = 39045,
-            //        Y = 12932,
-            //        Altitude = 14000,
-            //        TimeStamp = new DateTime(2015, 10, 06, 21, 34, 56, 789)
-            //    }
-            //};
 
-            //_trackObjectifier.Objectify(listReciever).Returns(trackList);
-
+            // Act
             _transponderReceiver.TransponderDataReady +=
                 Raise.EventWith(new RawTransponderDataEventArgs(listReciever));
 
-            //_trackObjectifier.Received().Objectify(listReciever);
+            // Assert
             _trackTransmitter.Received().Transmit(_trackObjectifier.Objectify(listReciever));
         }
 
         [Test]
         public void TrackReciever_RaiseEventTwice_EventWasRecievedTwice()
         {
-            // Arrange & Act
+            // Arrange
             List<string> listReciever = new List<string> {"Unit test"};
+
+            // Act
             _transponderReceiver.TransponderDataReady += 
                 Raise.EventWith(new RawTransponderDataEventArgs(listReciever));
 
