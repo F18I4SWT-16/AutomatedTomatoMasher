@@ -50,8 +50,7 @@ namespace AutomatedTomatoMasher.Test.Unit
             Assert.That(trackList[0].Y, Is.EqualTo(_uut.Objectify(stringList)[0].Y));
             Assert.That(trackList[0].Altitude, Is.EqualTo(_uut.Objectify(stringList)[0].Altitude));
             Assert.That(trackList[0].TimeStamp, Is.EqualTo(_uut.Objectify(stringList)[0].TimeStamp));
-
-            Assert.That(trackList, Is.EqualTo(_uut.Objectify(stringList)));
+            
         }
     }
 }
