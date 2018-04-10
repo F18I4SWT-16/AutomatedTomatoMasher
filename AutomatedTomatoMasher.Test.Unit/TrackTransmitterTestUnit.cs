@@ -17,19 +17,15 @@ namespace AutomatedTomatoMasher.Test.Unit
     {
         private TrackTransmitter _uut;
         private List<Track> _tracksTransmitted;
-        private int _nEventsRaised;
 
         [SetUp]
         public void SetUp()
         {
-            _nEventsRaised = 0;
-
             _uut = new TrackTransmitter();
 
             _uut.TrackReady += (o, args) =>
             {
                 _tracksTransmitted = args.TrackList;
-                _nEventsRaised++;
             };
         }
 
@@ -55,13 +51,6 @@ namespace AutomatedTomatoMasher.Test.Unit
             Assert.That(trackList, Is.EqualTo(_tracksTransmitted));
         }
 
-        //[Test]
-        //public void Transmit_TransmitNull_NoTransmit()
-        //{
-        //    //Act 
-        //    _uut.Transmit(null);
-
-        //    Assert.That(_nEventsRaised, Is.EqualTo(0));
-        //}
+       
     }
 }
