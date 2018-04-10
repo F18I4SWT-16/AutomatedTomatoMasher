@@ -16,9 +16,9 @@ namespace AutomatedTomatoMasher.app
             var transponderReciever = TransponderReceiverFactory.CreateTransponderDataReceiver();
 
             var trackObjectifier = new TrackObjectifier(dateTimeBuilder);
-            var trackTransmitter = new TrackTransmitter(trackObjectifier);
+            var trackTransmitter = new TrackTransmitter();
 
-            var trackReciever = new TrackReciever(transponderReciever, trackObjectifier);
+            var trackReciever = new TrackReciever(transponderReciever, trackObjectifier, trackTransmitter);
 
 
             var atm = new AtmController(trackTransmitter);
