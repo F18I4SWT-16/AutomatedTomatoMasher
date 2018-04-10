@@ -13,7 +13,7 @@ namespace AutomatedTomatoMasher.library
     {
         private readonly IDateTimeBuilder _dateTimeBuilder;
         //private readonly ITrackTransmitter _trackTransmitter;
-        public event EventHandler<ObjectifierTrackEventArgs> TrackReady;
+        //public event EventHandler<ObjectifierTrackEventArgs> TrackReady;
 
         public TrackObjectifier(IDateTimeBuilder dateTimeBuilder)
         {
@@ -21,7 +21,7 @@ namespace AutomatedTomatoMasher.library
             //_trackTransmitter = trackTransmitter;
         }
 
-        public void Objectify(List<string> stringList)
+        public List<Track> Objectify(List<string> stringList)
         {
             var trackList = new List<Track>();
 
@@ -41,7 +41,8 @@ namespace AutomatedTomatoMasher.library
                 trackList.Add(track);
             }
 
-            TrackReady?.Invoke(this, new ObjectifierTrackEventArgs(trackList));
+            return trackList;
+            //TrackReady?.Invoke(this, new ObjectifierTrackEventArgs(trackList));
             //_trackTransmitter.Transmit(trackList);
         }
     }
