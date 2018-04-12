@@ -47,6 +47,10 @@
     <Compile Include="DateTimeBuilder.cs" />
     <Compile Include="DTO\Track.cs" />
     <Compile Include="Event\TransmitterTrackEventArgs.cs" />
+    <Compile Include="Interface\IOutput.cs" />
+    <Compile Include="Interface\ISeperationEventChecker.cs" />
+    <Compile Include="Interface\ISeperationEventLogger.cs" />
+    <Compile Include="Interface\ITrackWarehouse.cs" />
     <Compile Include="TrackObjectifier.cs" />
     <Compile Include="Interface\ITrackObjectifier.cs" />
     <Compile Include="Interface\IDateTimeBuilder.cs" />
