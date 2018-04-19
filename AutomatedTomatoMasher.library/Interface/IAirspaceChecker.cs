@@ -7,7 +7,7 @@ using AutomatedTomatoMasher.library.DTO;
 
 namespace AutomatedTomatoMasher.library.Interface
 {
-    interface IAirspaceChecker
+    public interface IAirspaceChecker
     {
         bool Check(Track track);
     }

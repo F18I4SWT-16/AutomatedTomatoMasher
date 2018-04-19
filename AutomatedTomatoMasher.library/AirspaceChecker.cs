@@ -8,7 +8,7 @@ using AutomatedTomatoMasher.library.Interface;
 
 namespace AutomatedTomatoMasher.library
 {
-    class AirspaceChecker : IAirspaceChecker
+    public class AirspaceChecker : IAirspaceChecker
     {
         private Airspace _airspace;
 
@@ -19,7 +19,12 @@ namespace AutomatedTomatoMasher.library
 
         public bool Check(Track track)
         {
-            throw new NotImplementedException();
+            if (track.Altitude < _airspace.MaxAltitude && track.Altitude > _airspace.MinAltitude
+                && track.X < _airspace.NorthEast.X && track.Y < _airspace.SouthWest.Y
+                && track.X > _airspace.SouthWest.X && track.Y > _airspace.NorthEast.Y)
+                return true;
+            else
+                return false;
         }
     }
 }

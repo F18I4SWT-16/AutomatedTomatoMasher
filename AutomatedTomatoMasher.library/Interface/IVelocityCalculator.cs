@@ -7,7 +7,7 @@ using AutomatedTomatoMasher.library.DTO;
 
 namespace AutomatedTomatoMasher.library.Interface
 {
-    interface IVelocityCalculator
+    public interface IVelocityCalculator
     {
         double Calculate(List<Track> trackList);
     }

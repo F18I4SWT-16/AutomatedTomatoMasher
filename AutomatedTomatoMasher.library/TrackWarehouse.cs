@@ -8,7 +8,7 @@ using AutomatedTomatoMasher.library.Interface;
 
 namespace AutomatedTomatoMasher.library
 {
-    class TrackWarehouse : ITrackWarehouse
+    public class TrackWarehouse : ITrackWarehouse
     {
         private List<Track> _tracksInAirspace;
         private List<string> _tagsInAirspace;
@@ -37,10 +37,16 @@ namespace AutomatedTomatoMasher.library
                         _tagsInAirspace.Add(track.Tag);
                 }
                 else
+                {
                     tracks.Remove(track);
+                    if (_tagsInAirspace.Contains(track.Tag))
+                        _tagsInAirspace.Remove(track.Tag);
+                    if (_tracksInAirspace.Contains(track))
+                        _tracksInAirspace.Remove(track);
+                }
             }
 
-            List<Track> _trackList = new List<Track>();
+            List<Track> _calcTrackList = new List<Track>();
 
             foreach (var tag in _tagsInAirspace)
             {
@@ -48,13 +54,18 @@ namespace AutomatedTomatoMasher.library
                 {
                     if (track.Tag == tag)
                     {
-                        _trackList.Add(track);
+                        _calcTrackList.Add(track);
                     }
                 }
 
-                
-                
-                
+                foreach (var track in tracks)
+                {
+                    if (track.Tag == tag)
+                    {
+                        track.Velocity = _velocityCalculator.Calculate(_calcTrackList);
+                        track.Course = _courseCalculator.Calculate(_calcTrackList);
+                    }
+                }
             }
 
             return tracks;

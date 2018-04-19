@@ -7,7 +7,7 @@ using AutomatedTomatoMasher.library.DTO;
 
 namespace AutomatedTomatoMasher.library.Interface
 {
-    interface ICourseCalculator
+    public interface ICourseCalculator
     {
         double Calculate(List<Track> trackList);
     }
