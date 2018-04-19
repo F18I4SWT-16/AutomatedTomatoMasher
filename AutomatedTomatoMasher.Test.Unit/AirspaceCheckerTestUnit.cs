@@ -54,6 +54,9 @@ namespace AutomatedTomatoMasher.Test.Unit
                 X = 91000,
                 Y = 91000
             };
+
+            //Act & Assert
+            Assert.That(_uut.Check(track), Is.EqualTo(false));
         }
     }
 }
