@@ -33,8 +33,11 @@ namespace AutomatedTomatoMasher.library
                 if (_airspaceChecker.Check(track))
                 {
                     _tracksInAirspace.Add(track);
-
+                    if (!_tagsInAirspace.Contains(track.Tag))
+                        _tagsInAirspace.Add(track.Tag);
                 }
+                else
+                    tracks.Remove(track);
             }
 
             foreach (var track in _tracksInAirspace)
@@ -42,6 +45,8 @@ namespace AutomatedTomatoMasher.library
                 
             }
             _courseCalculator.Calculate(_tracksInAirspace);
+
+            return tracks;
         }
     }
 }
