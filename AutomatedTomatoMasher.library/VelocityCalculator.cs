@@ -8,16 +8,9 @@ using AutomatedTomatoMasher.library.Interface;
 
 namespace AutomatedTomatoMasher.library
 {
-    class AirspaceChecker : IAirspaceChecker
+    class VelocityCalculator: IVelocityCalculator
     {
-        private Airspace _airspace;
-
-        public AirspaceChecker(Airspace airspace)
-        {
-            _airspace = airspace;
-        }
-
-        public bool Check(Track track)
+        public double Calculate(List<Track> trackList)
         {
             throw new NotImplementedException();
         }
