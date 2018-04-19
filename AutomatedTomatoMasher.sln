@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomatedTomatoMasher.libra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomatedTomatoMasher.Test.Unit", "AutomatedTomatoMasher.Test.Unit\AutomatedTomatoMasher.Test.Unit.csproj", "{50A3AF57-DFCB-4C38-BB86-95AE8E0F58B8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomatedTomatoMasher.Test.Integration", "AutomatedTomatoMasher.Test.Integration\AutomatedTomatoMasher.Test.Integration.csproj", "{5B4687A8-BBF7-4859-8D77-89029D3DE621}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{50A3AF57-DFCB-4C38-BB86-95AE8E0F58B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50A3AF57-DFCB-4C38-BB86-95AE8E0F58B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50A3AF57-DFCB-4C38-BB86-95AE8E0F58B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B4687A8-BBF7-4859-8D77-89029D3DE621}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B4687A8-BBF7-4859-8D77-89029D3DE621}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B4687A8-BBF7-4859-8D77-89029D3DE621}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B4687A8-BBF7-4859-8D77-89029D3DE621}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
