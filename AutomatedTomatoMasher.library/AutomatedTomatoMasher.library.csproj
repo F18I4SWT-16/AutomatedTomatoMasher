@@ -43,6 +43,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CourseCalculator.cs" />
     <Compile Include="DTO\Airspace.cs" />
     <Compile Include="AirspaceChecker.cs" />
     <Compile Include="AirspaceFileReader.cs" />

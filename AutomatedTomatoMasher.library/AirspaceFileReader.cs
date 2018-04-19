@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using AutomatedTomatoMasher.library.DTO;
+using AutomatedTomatoMasher.library.Interface;
 
 namespace AutomatedTomatoMasher.library
 {
@@ -25,15 +27,6 @@ namespace AutomatedTomatoMasher.library
         public Airspace Read()
         {
             return (Airspace) _serializer.Deserialize(_fileStream);
-
-            //_airspace = new Airspace()
-            //{
-            //    NorthEast = new Corner() {X = 90000, Y = 90000},
-            //    SouthWest = new Corner() {X = 10000, Y = 10000},
-            //    MaxAltitude = 20000,
-            //    MinAltitude = 500
-            //};
-            //return _airspace;
         }
     }
 }
