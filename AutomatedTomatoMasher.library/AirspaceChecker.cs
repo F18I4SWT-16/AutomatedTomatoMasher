@@ -10,7 +10,7 @@ namespace AutomatedTomatoMasher.library
 {
     public class AirspaceChecker : IAirspaceChecker
     {
-        private Airspace _airspace;
+        private readonly Airspace _airspace;
 
         public AirspaceChecker(Airspace airspace)
         {

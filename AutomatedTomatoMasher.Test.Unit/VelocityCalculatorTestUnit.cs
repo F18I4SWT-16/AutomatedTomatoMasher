@@ -22,7 +22,6 @@ namespace AutomatedTomatoMasher.Test.Unit
             _uut = new VelocityCalculator();
         }
 
-        [Test]
-        public void 
+
     }
 }
