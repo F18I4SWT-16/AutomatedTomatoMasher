@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutomatedTomatoMasher.library;
+using AutomatedTomatoMasher.library.DTO;
 using AutomatedTomatoMasher.library.Interface;
 using NSubstitute;
 using NUnit.Framework;
@@ -20,6 +21,7 @@ namespace AutomatedTomatoMasher.Test.Integration
         private TrackTransmitter _uut;
         private DateTimeBuilder _dateTimeBuilder;
         private List<string> _list;
+        private List<Track> _recievedTracks;
 
         [SetUp]
         public void SetUp()
@@ -34,6 +36,8 @@ namespace AutomatedTomatoMasher.Test.Integration
 
             _dateTimeBuilder.Build("20151006213456000").Returns(new DateTime(2015, 10, 06, 21, 34, 56));
             _list = new List<string> { "ATR423;39045;12932;14000;20151006213456000" };
+
+            _uut.TrackReady += (o, args) => { _recievedTracks = args.TrackList; };
         }
 
         [Test]
