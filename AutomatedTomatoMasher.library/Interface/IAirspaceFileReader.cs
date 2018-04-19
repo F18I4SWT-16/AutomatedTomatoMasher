@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AutomatedTomatoMasher.library
 {
-    interface IAirspaceFileReader
+    public interface IAirspaceFileReader
     {
         Airspace Read();
     }

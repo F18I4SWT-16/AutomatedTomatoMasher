@@ -8,7 +8,7 @@ using AutomatedTomatoMasher.library.Interface;
 
 namespace AutomatedTomatoMasher.library
 {
-    class TrackWarehouse : ITrackWarehouse
+    public class TrackWarehouse : ITrackWarehouse
     {
         private List<Track> _tracksInAirspace;
         private List<string> _tagsInAirspace;
