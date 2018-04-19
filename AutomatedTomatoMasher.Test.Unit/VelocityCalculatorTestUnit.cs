@@ -23,32 +23,45 @@ namespace AutomatedTomatoMasher.Test.Unit
             _uut = new VelocityCalculator();
         }
 
-        [TestCase(100,0,0)]
-        public void Calculator_MovementInOneSecound_ReturnsCorrectVelocity(int X, int Y, int altitude)
+        [TestCase(0,0,0,1,0)]
+        [TestCase(100,0,0,1,100)]
+        [TestCase(0,100,0,1,100)]
+        [TestCase(0,0,100,1,100)]
+        [TestCase(100,100,0,1,141.42)]
+        [TestCase(100,0,100,1,141.42)]
+        [TestCase(0,100,100,1,141.42)]
+        [TestCase(100,100,100,1,173.21)]
+        [TestCase(-100,100,100,1,173.21)]
+        [TestCase(-100, -100, 100, 1, 173.21)]
+        [TestCase(-100, -100, -100, 1, 173.21)]
+        [TestCase(100,100,100,2,86.60)]
+        [TestCase(100,100,100,10,17.32)]
+        [TestCase(100,100,100,0,0)]
+        public void Calculator_MovementInOneSecond_ReturnsCorrectVelocity(int X, int Y, int altitude, int time, double result)
         {
             //Arrange
             var trackList = new List<Track>() {
                 new Track()
                 {
                     Tag = "ATR423",
-                    X = 10000,
-                    Y = 10000,
-                    Altitude = 500,
+                    X = 20000,
+                    Y = 20000,
+                    Altitude = 5000,
                     TimeStamp = new DateTime(2018, 01, 01, 00, 00, 00, 000)
                 },
                 new Track()
                 {
                     Tag = "ATR423",
-                    X = 10000+X,
-                    Y = 10000+Y,
-                    Altitude = 500+altitude,
-                    TimeStamp = new DateTime(2018, 01, 01, 00, 01, 00, 000)
+                    X = 20000+X,
+                    Y = 20000+Y,
+                    Altitude = 5000+altitude,
+                    TimeStamp = new DateTime(2018, 01, 01, 00, 00, 00+time, 000)
                 }
             };
 
             //Act and Assert
-            Assert.That(_uut.Calculate(trackList), Is.EqualTo(100));
-            
+            Assert.That(_uut.Calculate(trackList), Is.EqualTo(result));
         }
+        
     }
 }
