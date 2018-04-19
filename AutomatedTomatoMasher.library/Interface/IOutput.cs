@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +8,6 @@ namespace AutomatedTomatoMasher.library.Interface
 {
     public interface IOutput
     {
-        void Output(List<Track> tracks);
+        void Write(List<Track> tracks);
     }
 }

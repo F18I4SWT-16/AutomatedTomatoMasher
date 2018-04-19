@@ -12,9 +12,8 @@ namespace AutomatedTomatoMasher.library.DTO
         public double Course { get; set; }
         public DateTime TimeStamp { get; set; }
 
-        public string PrintTrack()
-        {
-            return $"Tag: {Tag}, X-coordinate: {X}, Y-coordinate: {Y}, Altitude: {Altitude}, Timestamp: {TimeStamp}";
-        }
+        public override string ToString() => $"Tag: {Tag}, X-coordinate: {X}, Y-coordinate: " +
+                                             $"{Y}, Altitude: {Altitude}, Timestamp: {TimeStamp}, " +
+                                             $"Velocity: {Velocity} m/s, Course: {Course} degrees";
     }
 }

@@ -61,6 +61,7 @@
     <Compile Include="Interface\IAirspaceFileReader.cs" />
     <Compile Include="Interface\ICourseCalculator.cs" />
     <Compile Include="Interface\IVelocityCalculator.cs" />
+    <Compile Include="Interface\Output.cs" />
     <Compile Include="TrackObjectifier.cs" />
     <Compile Include="Interface\ITrackObjectifier.cs" />
     <Compile Include="Interface\IDateTimeBuilder.cs" />
