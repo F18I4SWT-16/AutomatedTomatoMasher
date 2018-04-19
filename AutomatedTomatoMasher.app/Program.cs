@@ -39,7 +39,6 @@ namespace AutomatedTomatoMasher.app
             TrackReciever trackReciever = new TrackReciever(transponderReceiver, trackObjectifier, trackTransmitter);
 
 
-
             Console.ReadKey();
 
         }
