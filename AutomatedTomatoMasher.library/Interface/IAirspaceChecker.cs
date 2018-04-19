@@ -9,6 +9,6 @@ namespace AutomatedTomatoMasher.library.Interface
 {
     interface IAirspaceChecker
     {
-        bool Check(Track);
+        bool Check(Track track);
     }
 }
