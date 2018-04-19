@@ -8,7 +8,7 @@ using AutomatedTomatoMasher.library.Interface;
 
 namespace AutomatedTomatoMasher.library
 {
-    class VelocityCalculator: IVelocityCalculator
+    public class VelocityCalculator: IVelocityCalculator
     {
         public double Calculate(List<Track> trackList)
         {

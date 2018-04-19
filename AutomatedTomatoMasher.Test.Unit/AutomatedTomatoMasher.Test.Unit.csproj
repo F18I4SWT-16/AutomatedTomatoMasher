@@ -67,6 +67,7 @@
     <Compile Include="TrackRecieverTestUnit.cs" />
     <Compile Include="TrackTestUnit.cs" />
     <Compile Include="TrackTransmitterTestUnit.cs" />
+    <Compile Include="VelocityCalculatorTestUnit.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
