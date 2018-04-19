@@ -12,32 +12,37 @@ namespace AutomatedTomatoMasher.library
     {
         public double Calculate(List<Track> trackList)
         {
-            Track Newest = trackList.OrderBy(x => x.TimeStamp).FirstOrDefault();
-            Track Oldest = trackList.OrderByDescending(x => x.TimeStamp).FirstOrDefault();
+            Track Oldest = trackList.OrderBy(x => x.TimeStamp).FirstOrDefault();
+            Track Newest = trackList.OrderByDescending(x => x.TimeStamp).FirstOrDefault();
 
-            int Xdif;
-            int Ydif;
+         
+            int Xdif = Newest.X - Oldest.X;
+              
+            int Ydif = Newest.Y - Oldest.Y;
 
-            if (Newest.X - Oldest.X > 0)
+            if (Xdif == 0 && Newest.Y > Oldest.Y)
             {
-                Xdif = Newest.X - Oldest.X;
+                return 0;
             }
-            else
+            if (Xdif == 0 && Newest.Y < Oldest.Y)
             {
-                Xdif = Oldest.X - Newest.X;
-            }
-
-            if (Newest.Y - Oldest.Y > 0)
-            {
-                Ydif = Newest.Y - Oldest.Y;
-            }
-            else
-            {
-                Ydif = Oldest.Y - Newest.Y;
+                return 180;
             }
 
-            double CourseInDegree = Math.Atan(Xdif / Ydif);
-            return CourseInDegree;
+            if (Ydif == 0 && Newest.X > Oldest.X)
+            {
+                return 90;
+            }
+            if (Ydif == 0 && Newest.X < Oldest.X)
+            {
+                return 270;
+            }
+
+            double frac = Xdif/Ydif;
+
+            double angleInRadian = Math.Atan(frac);
+            return angleInRadian * (180.0 / Math.PI);
+
         }
     }
 }
