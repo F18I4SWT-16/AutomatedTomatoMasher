@@ -40,11 +40,22 @@ namespace AutomatedTomatoMasher.library
                     tracks.Remove(track);
             }
 
-            foreach (var track in _tracksInAirspace)
+            List<Track> _trackList = new List<Track>();
+
+            foreach (var tag in _tagsInAirspace)
             {
+                foreach (var track in _tracksInAirspace)
+                {
+                    if (track.Tag == tag)
+                    {
+                        _trackList.Add(track);
+                    }
+                }
+
+                
+                
                 
             }
-            _courseCalculator.Calculate(_tracksInAirspace);
 
             return tracks;
         }
