@@ -10,7 +10,7 @@ namespace AutomatedTomatoMasher.library.Interface
         {
             foreach (var track in tracks)
             {
-                Console.WriteLine(track.PrintTrack());
+                Console.WriteLine(track.ToString());
             }
         }
     }

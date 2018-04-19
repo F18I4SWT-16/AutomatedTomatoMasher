@@ -10,18 +10,11 @@ namespace AutomatedTomatoMasher.library
 {
     public class AtmController
     {
-        private IOutput _output;
-        private ITrackWarehouse _trackWarehouse;
-
         public AtmController(ITrackTransmitter trackTransmitter, IOutput output, ITrackWarehouse trackWarehouse)
         {
-            _output = output;
-            _trackWarehouse = trackWarehouse;
-
             trackTransmitter.TrackReady += (o, args) =>
             {
-                _output.Output(_trackWarehouse.Update(args.TrackList));
-                
+                output.Write(trackWarehouse.Update(args.TrackList));
             };
 
             // Temporary code to show functionality
@@ -32,7 +25,6 @@ namespace AutomatedTomatoMasher.library
             //        Console.WriteLine(track.PrintTrack());
             //    }
             //};
-
         }
     }
 }

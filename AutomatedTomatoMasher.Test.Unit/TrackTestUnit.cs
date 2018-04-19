@@ -15,18 +15,20 @@ namespace AutomatedTomatoMasher.Test.Unit
 
 
         [Test]
-        public void PrintTrack_PrintsTrackCorrectly()
+        public void ToString_PrintsTrackCorrectly()
         {
             //Arrange
             _uut = new Track() {Altitude = 1, TimeStamp = 
-                new DateTime().Date, Tag = "1", Y = 2, X = 3};
+                new DateTime().Date, Tag = "1", Y = 2, X = 3,
+                Course = 90, Velocity = 100};
 
             var expected = "Tag: 1, X-coordinate: " + 3 + 
                 ", Y-coordinate: " + 2 + ", Altitude: " + 1 + 
-                ", Timestamp: " + new DateTime().Date;
+                ", Timestamp: " + new DateTime().Date +
+                ", Velocity: "+ 100 + " m/s, Course: " + 90 + " degrees";
 
             // Act & Assert
-            Assert.That(_uut.PrintTrack(), Is.EqualTo(expected));
+            Assert.That(_uut.ToString(), Is.EqualTo(expected));
         }
     }
 }
