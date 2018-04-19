@@ -20,8 +20,8 @@ namespace AutomatedTomatoMasher.library
 
             trackTransmitter.TrackReady += (o, args) =>
             {
-                _output.Output(args.TrackList);
-                _trackWarehouse.Update(args.TrackList);
+                _output.Output(_trackWarehouse.Update(args.TrackList));
+                
             };
 
             // Temporary code to show functionality

@@ -33,7 +33,7 @@ namespace AutomatedTomatoMasher.library
                 if (_airspaceChecker.Check(track))
                 {
                     _tracksInAirspace.Add(track);
-                    _tagsInAirspace.Add(track.Tag);
+
                 }
             }
 
