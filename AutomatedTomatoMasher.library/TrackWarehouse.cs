@@ -66,7 +66,6 @@ namespace AutomatedTomatoMasher.library
                         track.Course = _courseCalculator.Calculate(_calcTrackList);
                     }
                 }
-                
             }
 
             return tracks;
