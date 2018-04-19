@@ -68,6 +68,7 @@
     <Compile Include="TrackReciever.cs" />
     <Compile Include="TrackTransmitter.cs" />
     <Compile Include="TrackWarehouse.cs" />
+    <Compile Include="VelocityCalculator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
