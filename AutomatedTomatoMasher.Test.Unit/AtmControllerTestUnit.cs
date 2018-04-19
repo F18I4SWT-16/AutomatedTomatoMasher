@@ -22,6 +22,7 @@ namespace AutomatedTomatoMasher.Test.Unit
         private ITrackWarehouse _trackWarehouse;
         private AtmController _uut;
 
+        [SetUp]
         public void Setup()
         {
             _trackTransmitter = Substitute.For<ITrackTransmitter>();
