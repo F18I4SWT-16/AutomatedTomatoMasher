@@ -19,6 +19,9 @@ namespace AutomatedTomatoMasher.library
             int Ydif;
             int Altitudedif;
 
+            TimeSpan Timedif = Newest.TimeStamp.Subtract(Oldest.TimeStamp);
+            double Secdif = Timedif.TotalSeconds;
+
 
             if (Newest.X - Oldest.X > 0)
             {
@@ -49,18 +52,14 @@ namespace AutomatedTomatoMasher.library
             {
                 Altitudedif = Oldest.Altitude - Newest.Altitude;
             }
+            
 
         
             double SumSquared= Math.Pow(Xdif, 2) + Math.Pow(Ydif,2) + Math.Pow(Altitudedif,2); 
 
-            double Velocity = Math.Sqrt(SumSquared);
+            double Velocity = Math.Sqrt(SumSquared) / Secdif;
             return Velocity;
 
         }
-
-
-       
-
-
     }
 }
