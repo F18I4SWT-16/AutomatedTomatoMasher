@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AutomatedTomatoMasher.library
 {
-    class Corner
+    public class Corner
     {
         public int X { get; set; }
         public int Y { get; set; }

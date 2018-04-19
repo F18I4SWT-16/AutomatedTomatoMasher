@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Airspace xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <NorthEast>
+    <X>90000</X>
+    <Y>90000</Y>
+  </NorthEast>
+  <SouthWest>
+    <X>10000</X>
+    <Y>10000</Y>
+  </SouthWest>
+  <MaxAltitude>20000</MaxAltitude>
+  <MinAltitude>500</MinAltitude>
+</Airspace>

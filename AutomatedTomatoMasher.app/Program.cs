@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using TransponderReceiver;
 using AutomatedTomatoMasher.library;
 
@@ -25,6 +27,13 @@ namespace AutomatedTomatoMasher.app
 
 
             //Console.ReadKey();
+
+
+            AirspaceFileReader airspaceFileReader = new AirspaceFileReader();
+
+            Airspace airspace = airspaceFileReader.Read();
+
+
         }
 
 

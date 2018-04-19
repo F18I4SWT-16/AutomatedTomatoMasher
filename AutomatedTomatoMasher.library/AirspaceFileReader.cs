@@ -1,17 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace AutomatedTomatoMasher.library
 {
-    class AirspaceFileReader : IAirspaceFileReader
+    public class AirspaceFileReader : IAirspaceFileReader
     {
-        private Airspace _airspace;
+
+        private readonly XmlSerializer _serializer;
+        private readonly FileStream _fileStream;
+
+        public AirspaceFileReader()
+        {
+            const string dir = @"...\...\...\Airspace.xml";
+
+            _serializer = new XmlSerializer(typeof(Airspace));
+            _fileStream = new FileStream(dir, FileMode.Open);
+        }
 
         public Airspace Read()
         {
+            return (Airspace) _serializer.Deserialize(_fileStream);
+
             //_airspace = new Airspace()
             //{
             //    NorthEast = new Corner() {X = 90000, Y = 90000},
@@ -20,7 +34,6 @@ namespace AutomatedTomatoMasher.library
             //    MinAltitude = 500
             //};
             //return _airspace;
-            return null;
         }
     }
 }

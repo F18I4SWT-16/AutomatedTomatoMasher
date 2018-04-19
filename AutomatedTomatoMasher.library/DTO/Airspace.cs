@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AutomatedTomatoMasher.library
 {
-    class Airspace
+    public class Airspace
     {
         public Corner NorthEast { get; set; }
         public Corner SouthWest { get; set; }
