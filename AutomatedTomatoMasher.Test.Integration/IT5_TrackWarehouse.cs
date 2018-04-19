@@ -13,7 +13,7 @@ using TransponderReceiver;
 namespace AutomatedTomatoMasher.Test.Integration
 {
     [TestFixture]
-    class IT4_AtmController
+    class IT5_TrackWarehouse
     {
         private TrackReciever _trackReciever;
         private TrackObjectifier _trackObjectifier;
@@ -22,9 +22,14 @@ namespace AutomatedTomatoMasher.Test.Integration
         private DateTimeBuilder _dateTimeBuilder;
         private List<string> _list;
         private List<Track> _recievedTracks;
-        private AtmController _uut;
+        private AtmController _atmController;
         private IOutput _output;
-        private ITrackWarehouse _trackWarehouse;
+        private TrackWarehouse _uut;
+        private IAirspaceChecker _airspaceChecker;
+        private ICourseCalculator _courseCalculator;
+        private IVelocityCalculator _velocityCalculator;
+        private ISeperationEventChecker _seperationEventChecker;
+
 
         [SetUp]
         public void SetUp()
@@ -37,30 +42,22 @@ namespace AutomatedTomatoMasher.Test.Integration
 
             _trackReciever = new TrackReciever(_transponderReceiver, _trackObjectifier, _trackTransmitter);
             _output = Substitute.For<IOutput>();
-            _trackWarehouse = Substitute.For<ITrackWarehouse>();
-            _uut = new AtmController(_trackTransmitter, _output, _trackWarehouse);
+            _airspaceChecker = Substitute.For<IAirspaceChecker>();
+            _courseCalculator = Substitute.For<ICourseCalculator>();
+            _velocityCalculator = Substitute.For<IVelocityCalculator>();
 
-            _list = new List<string> { "ATR423;39045;12932;14000;20151006213456000" };
+
+            _uut = new TrackWarehouse(_airspaceChecker, _courseCalculator, _velocityCalculator);
+            _atmController = new AtmController(_trackTransmitter, _output, _uut);
+
+
+            _list = new List<string> {"ATR423;39045;12932;14000;20151006213456000"};
 
             _trackTransmitter.TrackReady += (o, args) => { _recievedTracks = args.TrackList; };
 
-            
+            // Act
             _transponderReceiver.TransponderDataReady +=
                 Raise.EventWith(new RawTransponderDataEventArgs(_list));
-        }
-
-        [Test]
-        public void AtmController_Update_WasReceived()
-        {
-            //Assert
-            _trackWarehouse.Received().Update(_recievedTracks);
-        }
-
-        [Test]
-        public void AtmController_Output_WasCalled()
-        {
-            //Act & Assert
-            _output.Received().Write(_trackWarehouse.Update(_recievedTracks));
         }
     }
 }

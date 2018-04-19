@@ -63,6 +63,7 @@
     <Compile Include="IT2_DateTimeBuilder.cs" />
     <Compile Include="IT3_TrackTransmitter.cs" />
     <Compile Include="IT4_AtmController.cs" />
+    <Compile Include="IT5_TrackWarehouse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
