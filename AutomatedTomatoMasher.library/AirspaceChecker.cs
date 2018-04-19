@@ -17,7 +17,7 @@ namespace AutomatedTomatoMasher.library
             _airspace = airspace;
         }
 
-        public bool Check(List<Track> trackList)
+        public bool Check(Track track)
         {
             throw new NotImplementedException();
         }
