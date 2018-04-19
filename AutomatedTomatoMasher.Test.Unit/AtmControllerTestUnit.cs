@@ -21,6 +21,9 @@ namespace AutomatedTomatoMasher.Test.Unit
         private IOutput _output;
         private ITrackWarehouse _trackWarehouse;
         private AtmController _uut;
+        private Track _track;
+        private List<Track> _tracks;
+        
 
         [SetUp]
         public void Setup()
@@ -29,31 +32,56 @@ namespace AutomatedTomatoMasher.Test.Unit
             _output = Substitute.For<IOutput>();
             _trackWarehouse = Substitute.For<ITrackWarehouse>();
             _uut = new AtmController(_trackTransmitter, _output, _trackWarehouse);
+
+            _track = new Track
+            {
+                Altitude = 13000,
+                X = 40000,
+                Y = 13000,
+                TimeStamp = new DateTime(2010, 12, 12, 12, 12, 12, 12),
+                Tag = "ATM-Test"
+            };
+
+            _tracks = new List<Track> { _track };
         }
 
         [Test]
-        public void AtmController_RaiseTrackReadyEvent_ReturnsTracks()
+        public void AtmController_RaiseTrackReadyEvent_TrackWareHouseUpdateCalled()
         {
-            //Arrange
-            Track _track = new Track();
-            _track.Altitude = 13000;
-            _track.X = 40000;
-            _track.Y = 13000;
-            _track.TimeStamp = new DateTime(2010,12,12,12,12,12,12);
-            _track.Tag = "HejLars";
-           
-            List<Track> _trackList = new List<Track>();
-            _trackList.Add(_track);
+            // Act
+            _trackTransmitter.TrackReady +=
+                Raise.EventWith(new TransmitterTrackEventArgs(_tracks));
 
-            //Act
-            _trackTransmitter.TrackReady += Raise.EventWith(new TransmitterTrackEventArgs(_trackList));
-
-            //Assert 
-            _trackWarehouse.Update(_trackList).Received();
-
+            // Assert 
+            _trackWarehouse.Received().Update(_tracks);
         }
 
+        [Test]
+        public void AtmController_RaiseTrackReadyEvent_OutputWriteCalled()
+        {
+            // Arrange 
+            var tracks = new List<Track> { new Track() {
+            
+                Altitude = 1,
+                Course = 2,
+                Tag = "3",
+                TimeStamp = new DateTime(1,2,3),
+                Velocity = 4,
+                X = 5,
+                Y = 6
+            }};
+
+            _tracks = new List<Track> { _track };
+
+            _trackWarehouse.Update(_tracks).Returns(tracks);
+
+            // Act
+            _trackTransmitter.TrackReady +=
+                Raise.EventWith(new TransmitterTrackEventArgs(_tracks));
 
 
+            // Assert
+            _output.Received().Write(tracks);
+        }
     }
 }
