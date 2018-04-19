@@ -29,8 +29,7 @@ namespace AutomatedTomatoMasher.Test.Unit
             _uut = new TrackWarehouse(_airspaceChecker,_courseCalculator,_velocityCalculator);
         }
 
-        [Test]
-        public void 
+
 
 
     }

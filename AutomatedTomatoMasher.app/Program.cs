@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using TransponderReceiver;
 using AutomatedTomatoMasher.library;
+using AutomatedTomatoMasher.library.DTO;
+using AutomatedTomatoMasher.library.Interface;
 
 namespace AutomatedTomatoMasher.app
 {
@@ -14,25 +16,31 @@ namespace AutomatedTomatoMasher.app
     {
         static void Main(string[] args)
         {
-            //var dateTimeBuilder = new DateTimeBuilder();
-            //var transponderReciever = TransponderReceiverFactory.CreateTransponderDataReceiver();
+            try
+            {
+                AirspaceFileReader airspaceFileReader = new AirspaceFileReader();
 
-            //var trackObjectifier = new TrackObjectifier(dateTimeBuilder);
-            //var trackTransmitter = new TrackTransmitter();
+                Airspace airspace = airspaceFileReader.Read();
+            }
+            catch (Exception e)
+            {
+                
+                Console.WriteLine("Invalid Airspace" + e.ToString());
+                Console.ReadKey();
+            }
 
-            //var trackReciever = new TrackReciever(transponderReciever, trackObjectifier, trackTransmitter);
+            ITransponderReceiver transponderReceiver = TransponderReceiverFactory.CreateTransponderDataReceiver();
+
+            IDateTimeBuilder dateTimeBuilder = new DateTimeBuilder();
+            ITrackObjectifier trackObjectifier = new TrackObjectifier(dateTimeBuilder);
+
+            ITrackTransmitter trackTransmitter = new TrackTransmitter();
+
+            TrackReciever trackReciever = new TrackReciever(transponderReceiver, trackObjectifier, trackTransmitter);
 
 
-            //var atm = new AtmController(trackTransmitter);
 
-
-            //Console.ReadKey();
-
-
-            AirspaceFileReader airspaceFileReader = new AirspaceFileReader();
-
-            Airspace airspace = airspaceFileReader.Read();
-
+            Console.ReadKey();
 
         }
 

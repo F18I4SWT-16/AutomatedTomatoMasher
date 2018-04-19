@@ -10,16 +10,19 @@ namespace AutomatedTomatoMasher.library
 {
     public class TrackWarehouse : ITrackWarehouse
     {
-        private List<Track> _tracksInAirspace;
-        private List<string> _tagsInAirspace;
+        private readonly List<Track> _tracksInAirspace;
+        private readonly List<string> _tagsInAirspace;
 
-        private IAirspaceChecker _airspaceChecker;
-        private ICourseCalculator _courseCalculator;
-        private IVelocityCalculator _velocityCalculator;
+        private readonly IAirspaceChecker _airspaceChecker;
+        private readonly ICourseCalculator _courseCalculator;
+        private readonly IVelocityCalculator _velocityCalculator;
 
         public TrackWarehouse(IAirspaceChecker airspaceChecker, ICourseCalculator courseCalculator,
             IVelocityCalculator velocityCalculator)
         {
+            _tracksInAirspace = new List<Track>();
+            _tagsInAirspace = new List<string>();
+
             _airspaceChecker = airspaceChecker;
             _courseCalculator = courseCalculator;
             _velocityCalculator = velocityCalculator;
