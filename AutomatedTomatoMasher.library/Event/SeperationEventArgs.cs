@@ -9,11 +9,11 @@ namespace AutomatedTomatoMasher.library.Event
 {
     public class SeperationEventArgs : EventArgs
     {
-        public List<Track> TrackList { get; }
+        public List<Track> Tracks { get; }
 
-        public SeperationEventArgs(List<Track> trackList)
+        public SeperationEventArgs(List<Track> tracks)
         {
-            TrackList = trackList;
+            Tracks = tracks;
         }
     }
 }
