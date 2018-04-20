@@ -10,6 +10,6 @@ namespace AutomatedTomatoMasher.library.Interface
 {
     public interface ISeperationEventLogger
     {
-        void Log();
+        void Log(List<Track> tracks);
     }
 }
