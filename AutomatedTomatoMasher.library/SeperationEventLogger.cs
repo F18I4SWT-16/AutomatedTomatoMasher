@@ -24,10 +24,9 @@ namespace AutomatedTomatoMasher.library
         {
             foreach (Track track in tracks)
             {
-                Save(track, @"...\...\...\Airspace.xml");
+                Save(track, @"...\...\...\SeperationLog.xml");
             }
             
-
             _output.Write(tracks);
         }
 
