@@ -6,7 +6,7 @@ namespace AutomatedTomatoMasher.library
 {
     public class TracksManager : ITracksManager
     {
-        public void Manage(List<Track> tracks, List<string> tags)
+        public void Manage(ref List<Track> tracks, List<string> tags)
         {
             var tracksToRemove = new List<Track>();
 

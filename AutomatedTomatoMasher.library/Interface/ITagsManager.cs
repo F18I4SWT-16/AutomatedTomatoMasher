@@ -9,6 +9,6 @@ namespace AutomatedTomatoMasher.library.Interface
 {
     public interface ITagsManager
     {
-        void Manage(List<string> tags, List<Track> tracks);
+        void Manage(ref List<string> tags, List<Track> tracks);
     }
 }
