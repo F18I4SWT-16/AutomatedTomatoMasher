@@ -1,25 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using AutomatedTomatoMasher.library;
 using AutomatedTomatoMasher.library.DTO;
 using AutomatedTomatoMasher.library.Interface;
 using NSubstitute;
-using NSubstitute.Core;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
+
 
 namespace AutomatedTomatoMasher.Test.Unit
 {
     [TestFixture]
     class TrackWarehouseTestUnit
     {
-        private ITagsManager _tagsManager; 
+        private ITagsManager _tagsManager;
         private ICourseCalculator _courseCalculator;
         private IVelocityCalculator _velocityCalculator;
-        private ITracksManager _tracksCleaner;
+        private ITracksManager _tracksManager;
         private TrackWarehouse _uut;
 
         private List<Track> _tracks;
@@ -30,32 +25,85 @@ namespace AutomatedTomatoMasher.Test.Unit
             _tagsManager = Substitute.For<ITagsManager>();
             _courseCalculator = Substitute.For<ICourseCalculator>();
             _velocityCalculator = Substitute.For<IVelocityCalculator>();
-            _tracksCleaner = Substitute.For<ITracksManager>();
+            _tracksManager = Substitute.For<ITracksManager>();
             _uut = new TrackWarehouse(_tagsManager, _courseCalculator,
-                _velocityCalculator, _tracksCleaner);
+                _velocityCalculator, _tracksManager);
 
             _tracks = new List<Track> {
                 new Track() {Tag = "1" },
                 new Track() {Tag = "2" },
                 new Track() {Tag = "1" }
             };
+
+            var tags = new List<string> { "1", "2" };
+            // Det gør ingen forskel, hvad der står i x.Manage()
+            _tagsManager.WhenForAnyArgs(x => x.Manage(ref tags, _tracks))
+                .Do(x => x[0] = tags);
         }
 
-        [Test]
-        public void Update_AddTracks_CourseIsCalculated()
+        [TestCase(2, 0, 2)]
+        [TestCase(1, 1, 1)]
+        public void Update_AddTracks_VelocityCalledWithCorrectTracks(int nCalls, 
+            int idx1, int idx2)
+        {
+            // Act 
+            _uut.Update(_tracks);
+
+            // Assert
+            _velocityCalculator.Received(nCalls)
+                .Calculate(Arg.Is<List<Track>>(
+                    x => x.Contains(_tracks[idx1]) && x.Contains(_tracks[idx2])));
+        }
+
+        [TestCase(2, 0, 2)]
+        [TestCase(1, 1, 1)]
+        public void Update_AddTracks_CourseCalledWithCorrectTracks(int nCalls, 
+            int idx1, int idx2)
+        {
+            // Act
+            _uut.Update(_tracks);
+
+            // Assert
+            _courseCalculator.Received(nCalls)
+                .Calculate(Arg.Is<List<Track>>(
+                    x => x.Contains(_tracks[idx1]) && x.Contains(_tracks[idx2])));
+        }
+
+
+        [TestCase(0, 0, 2)]
+        [TestCase(1, 1, 1)]
+        [TestCase(2, 0, 2)]
+        public void Update_AddTracks_CourseIsCalculated(int expectedTrack, 
+            int idx1, int idx2)
         {
             // Arrange
-            var tags = new List<string>{"1", "2"};
-                // Det gør ingen forskel, hvad der står i x.Manage()
-            _tagsManager.WhenForAnyArgs( x => x.Manage(ref tags, _tracks )) 
-                .Do(x => x[0] = tags);
-            _courseCalculator.Calculate(Arg.Any<List<Track>>()).Returns(5.5);
+            _courseCalculator.Calculate(Arg.Is<List<Track>>(
+                    x => x.Contains(_tracks[idx1]) && x.Contains(_tracks[idx2])))
+                .Returns(5.5);
 
             // Act
             _uut.Update(_tracks);
 
             // Assert
-            Assert.That(_tracks[0].Course, Is.EqualTo(5.5));
+            Assert.That(_tracks[expectedTrack].Course, Is.EqualTo(5.5));
+        }
+
+        [TestCase(0, 0, 2)]
+        [TestCase(1, 1, 1)]
+        [TestCase(2, 0, 2)]
+        public void Update_AddTracks_VelovityIsCalculated(int expectecTrack, 
+            int idx1, int idx2)
+        {
+            // Arrange
+            _velocityCalculator.Calculate(Arg.Is<List<Track>>(
+                    x => x.Contains(_tracks[idx1]) && x.Contains(_tracks[idx2])))
+                .Returns(5.5);
+
+            // Act
+            _uut.Update(_tracks);
+
+            // Assert
+            Assert.That(_tracks[expectecTrack].Velocity, Is.EqualTo(5.5));
         }
     }
 }
