@@ -56,12 +56,14 @@
     <Compile Include="Interface\IOutput.cs" />
     <Compile Include="Interface\ISeperationEventChecker.cs" />
     <Compile Include="Interface\ISeperationEventLogger.cs" />
+    <Compile Include="Interface\ITracksCleaner.cs" />
     <Compile Include="Interface\ITrackWarehouse.cs" />
     <Compile Include="Interface\IAirspaceChecker.cs" />
     <Compile Include="Interface\IAirspaceFileReader.cs" />
     <Compile Include="Interface\ICourseCalculator.cs" />
     <Compile Include="Interface\IVelocityCalculator.cs" />
-    <Compile Include="Interface\Output.cs" />
+    <Compile Include="TracksCleaner.cs" />
+    <Compile Include="Output.cs" />
     <Compile Include="SeperationEventChecker.cs" />
     <Compile Include="SeperationEventLogger.cs" />
     <Compile Include="TrackObjectifier.cs" />
