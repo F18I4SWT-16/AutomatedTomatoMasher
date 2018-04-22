@@ -23,9 +23,8 @@ namespace AutomatedTomatoMasher.library
                 for (int i = count; i < tracks.Count; i++)
                 {
                     if (Math.Abs(track.Altitude - tracks[i].Altitude) < 300
-                        && Math.Sqrt(Math.Pow(track.X,2)+Math.Pow(tracks[i].X,2)) - Math.Sqrt(Math.Pow(track.Y, 2) + Math.Pow(tracks[i].Y, 2)) < 5000)
+                        && Math.Sqrt(Math.Pow(track.X - tracks[i].X,2) + Math.Pow(track.Y - tracks[i].Y,2)) < 5000)
                         TrackReady?.Invoke(this, new TransmitterTrackEventArgs(new List<Track>(){track, tracks[i]}));
-
                 }
             }
 

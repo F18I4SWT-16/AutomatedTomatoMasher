@@ -67,6 +67,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TrackObjectifierTestUnit.cs" />
     <Compile Include="TrackRecieverTestUnit.cs" />
+    <Compile Include="TracksCleanerTestUnit.cs" />
     <Compile Include="TrackTestUnit.cs" />
     <Compile Include="TrackTransmitterTestUnit.cs" />
     <Compile Include="TrackWarehouseTestUnit.cs" />
