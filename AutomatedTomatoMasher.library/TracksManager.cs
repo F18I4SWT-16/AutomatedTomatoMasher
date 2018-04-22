@@ -4,9 +4,9 @@ using AutomatedTomatoMasher.library.Interface;
 
 namespace AutomatedTomatoMasher.library
 {
-    public class TracksCleaner : ITracksCleaner
+    public class TracksManager : ITracksManager
     {
-        public void Clean(List<Track> tracks, List<string> tags)
+        public void Manage(List<Track> tracks, List<string> tags)
         {
             var tracksToRemove = new List<Track>();
 

@@ -10,46 +10,37 @@ namespace AutomatedTomatoMasher.library
 {
     public class TrackWarehouse : ITrackWarehouse
     {
+        private readonly ITagsManager _tagsManager;
+        private readonly ICourseCalculator _courseCalculator;
+        private readonly IVelocityCalculator _velocityCalculator;
+        private readonly ITracksManager _tracksManager;
+
         private readonly List<Track> _tracksInAirspace;
         private readonly List<string> _tagsInAirspace;
 
-        private readonly IAirspaceChecker _airspaceChecker;
-        private readonly ICourseCalculator _courseCalculator;
-        private readonly IVelocityCalculator _velocityCalculator;
-        private readonly ITracksCleaner _tracksCleaner;
-
-        public TrackWarehouse(IAirspaceChecker airspaceChecker, ICourseCalculator courseCalculator,
-            IVelocityCalculator velocityCalculator, ITracksCleaner tracksCleaner)
+        public TrackWarehouse(ITagsManager tagsManager, ICourseCalculator courseCalculator, 
+            IVelocityCalculator velocityCalculator, ITracksManager tracksManager)
         {
-            _tracksInAirspace = new List<Track>();
-            _tagsInAirspace = new List<string>();
-
-            _airspaceChecker = airspaceChecker;
+            _tagsManager = tagsManager;
             _courseCalculator = courseCalculator;
             _velocityCalculator = velocityCalculator;
-            _tracksCleaner = tracksCleaner;
+            _tracksManager = tracksManager;
+
+            _tracksInAirspace = new List<Track>();
+            _tagsInAirspace = new List<string>();
         }
 
         public List<Track> Update(List<Track> tracks)
         {
+            _tagsManager.Manage(_tagsInAirspace, tracks);
+
             foreach (var track in tracks)
             {
-                if (_airspaceChecker.Check(track))
-                {
+                if(_tagsInAirspace.Contains(track.Tag))
                     _tracksInAirspace.Add(track);
-                    if (!_tagsInAirspace.Contains(track.Tag))
-                        _tagsInAirspace.Add(track.Tag);
-                }
-                else
-                {
-                    if (_tagsInAirspace.Contains(track.Tag))
-                        _tagsInAirspace.Remove(track.Tag);
-                }
             }
 
-            _tracksCleaner.Clean(tracks, _tagsInAirspace);
-
-            _tracksCleaner.Clean(_tracksInAirspace, _tagsInAirspace);
+            _tracksManager.Manage(_tracksInAirspace, _tagsInAirspace);
 
             List<Track> calcTrackList = new List<Track>();
 
@@ -72,6 +63,8 @@ namespace AutomatedTomatoMasher.library
                     }
                 }
             }
+
+            _tracksManager.Manage(tracks, _tagsInAirspace);
 
             return tracks;
         }
