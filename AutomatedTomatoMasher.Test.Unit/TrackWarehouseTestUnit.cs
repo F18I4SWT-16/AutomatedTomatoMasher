@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using AutomatedTomatoMasher.library;
 using AutomatedTomatoMasher.library.DTO;
 using AutomatedTomatoMasher.library.Interface;
@@ -15,6 +16,7 @@ namespace AutomatedTomatoMasher.Test.Unit
         private ICourseCalculator _courseCalculator;
         private IVelocityCalculator _velocityCalculator;
         private ITracksManager _tracksManager;
+        private ISeperationEventChecker _seperationEventChecker;
         private TrackWarehouse _uut;
 
         private List<Track> _tracks;
@@ -26,8 +28,9 @@ namespace AutomatedTomatoMasher.Test.Unit
             _courseCalculator = Substitute.For<ICourseCalculator>();
             _velocityCalculator = Substitute.For<IVelocityCalculator>();
             _tracksManager = Substitute.For<ITracksManager>();
+            _seperationEventChecker = Substitute.For<ISeperationEventChecker>();
             _uut = new TrackWarehouse(_tagsManager, _courseCalculator,
-                _velocityCalculator, _tracksManager);
+                _velocityCalculator, _tracksManager, _seperationEventChecker);
 
             _tracks = new List<Track> {
                 new Track() {Tag = "1" },
@@ -104,6 +107,17 @@ namespace AutomatedTomatoMasher.Test.Unit
 
             // Assert
             Assert.That(_tracks[expectecTrack].Velocity, Is.EqualTo(5.5));
+        }
+
+        [Test]
+        public void Update_AddTracks_SeperationEventCheckerCalled()
+        {
+            // Act
+            _uut.Update(_tracks);
+
+            // Assert
+            _seperationEventChecker.Received(1).Check(Arg.Is<List<Track>>(
+                x => x.Contains(_tracks[0]) && x.Contains(_tracks[1]) && x.Contains(_tracks[2])));
         }
     }
 }
