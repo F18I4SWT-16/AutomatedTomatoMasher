@@ -15,22 +15,22 @@ namespace AutomatedTomatoMasher.Test.Unit
     [TestFixture]
     class TrackWarehouseTestUnit
     {
-
-        private IAirspaceChecker _airspaceChecker;
+        private ITagsManager _tagsManager; 
         private ICourseCalculator _courseCalculator;
         private IVelocityCalculator _velocityCalculator;
-        private ITracksCleaner _tracksCleaner;
+        private ITracksManager _tracksCleaner;
         private TrackWarehouse _uut;
+
         private List<Track> _tracks;
 
         [SetUp]
         public void Setup()
         {
-            _airspaceChecker = Substitute.For<IAirspaceChecker>();
+            _tagsManager = Substitute.For<ITagsManager>();
             _courseCalculator = Substitute.For<ICourseCalculator>();
             _velocityCalculator = Substitute.For<IVelocityCalculator>();
-            _tracksCleaner = Substitute.For<ITracksCleaner>();
-            _uut = new TrackWarehouse(_airspaceChecker, _courseCalculator,
+            _tracksCleaner = Substitute.For<ITracksManager>();
+            _uut = new TrackWarehouse(_tagsManager, _courseCalculator,
                 _velocityCalculator, _tracksCleaner);
 
             _tracks = new List<Track> {
@@ -38,29 +38,6 @@ namespace AutomatedTomatoMasher.Test.Unit
                 new Track() {Tag = "2" },
                 new Track() {Tag = "1" }
             };
-
-            _airspaceChecker.Check(_tracks[0]).Returns(true);
-            _airspaceChecker.Check(_tracks[1]).Returns(false);
-            _airspaceChecker.Check(_tracks[2]).Returns(true);
-        }
-
-        [Test]
-        public void Update_AddTracks_TagsOutsideAirspaceRemoved()
-        {
-            // Arrange
-            var track = new Track() { Tag = "1" };
-            var tracks = new List<Track> { track };
-            _airspaceChecker.Check(track).Returns(false);
-
-            // Act
-            _uut.Update(_tracks);
-            _uut.Update(tracks);
-            tracks = new List<Track> { track };
-            _airspaceChecker.Check(track).Returns(true);
-            _uut.Update(tracks);
-
-            // Assert
-            _velocityCalculator.ReceivedWithAnyArgs(3).Calculate(new List<Track>());
         }
     }
 }

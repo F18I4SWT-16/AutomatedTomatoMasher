@@ -7,8 +7,8 @@ using AutomatedTomatoMasher.library.DTO;
 
 namespace AutomatedTomatoMasher.library.Interface
 {
-    public interface ITracksCleaner
+    public interface ITracksManager
     {
-        void Clean(List<Track> tracks, List<string> tags);
+        void Manage(List<Track> tracks, List<string> tags);
     }
 }
