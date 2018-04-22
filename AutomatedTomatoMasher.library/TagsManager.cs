@@ -13,7 +13,7 @@ namespace AutomatedTomatoMasher.library
             _airspaceChecker = airspaceChecker;
         }
 
-        public void Manage(List<string> tags, List<Track> tracks)
+        public void Manage(ref List<string> tags, List<Track> tracks)
         {
             foreach (var track in tracks)
             {

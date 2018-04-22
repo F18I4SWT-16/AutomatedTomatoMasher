@@ -7,6 +7,7 @@ using AutomatedTomatoMasher.library;
 using AutomatedTomatoMasher.library.DTO;
 using AutomatedTomatoMasher.library.Interface;
 using NSubstitute;
+using NSubstitute.Core;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 
@@ -38,6 +39,23 @@ namespace AutomatedTomatoMasher.Test.Unit
                 new Track() {Tag = "2" },
                 new Track() {Tag = "1" }
             };
+        }
+
+        [Test]
+        public void Update_AddTracks_CourseIsCalculated()
+        {
+            // Arrange
+            var tags = new List<string>{"1", "2"};
+                // Det gør ingen forskel, hvad der står i x.Manage()
+            _tagsManager.WhenForAnyArgs( x => x.Manage(ref tags, _tracks )) 
+                .Do(x => x[0] = tags);
+            _courseCalculator.Calculate(Arg.Any<List<Track>>()).Returns(5.5);
+
+            // Act
+            _uut.Update(_tracks);
+
+            // Assert
+            Assert.That(_tracks[0].Course, Is.EqualTo(5.5));
         }
     }
 }

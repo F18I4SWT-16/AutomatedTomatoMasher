@@ -44,7 +44,7 @@ namespace AutomatedTomatoMasher.Test.Unit
         public void Manage_CallManage_TagsCountIsCorrect()
         {
             // Act
-            _uut.Manage(_tags, _tracks);
+            _uut.Manage(ref _tags, _tracks);
 
             // Assert
             Assert.That(_tags.Count, Is.EqualTo(3));
@@ -56,7 +56,7 @@ namespace AutomatedTomatoMasher.Test.Unit
         public void Manage_CallManage_TagsAreCorrect(int idx, string expectedTag)
         {
             // Act
-            _uut.Manage(_tags, _tracks);
+            _uut.Manage(ref _tags, _tracks);
 
             // Assert
             Assert.That(_tags[idx], Is.EqualTo(expectedTag));
@@ -70,8 +70,8 @@ namespace AutomatedTomatoMasher.Test.Unit
             _airspaceChecker.Check(newTrack[0]).Returns(false);
 
             // Act
-            _uut.Manage(_tags, _tracks);
-            _uut.Manage(_tags, newTrack);
+            _uut.Manage(ref _tags, _tracks);
+            _uut.Manage(ref _tags, newTrack);
 
             // Assert
             Assert.That(_tags.Count, Is.EqualTo(2));
@@ -86,8 +86,8 @@ namespace AutomatedTomatoMasher.Test.Unit
             _airspaceChecker.Check(newTracks[0]).Returns(false);
 
             // Act
-            _uut.Manage(_tags, _tracks);
-            _uut.Manage(_tags, newTracks);
+            _uut.Manage(ref _tags, _tracks);
+            _uut.Manage(ref _tags, newTracks);
 
             // Assert
             Assert.That(_tags[idx], Is.EqualTo(expectedTag));
@@ -101,8 +101,8 @@ namespace AutomatedTomatoMasher.Test.Unit
             _airspaceChecker.Check(newTracks[0]).Returns(true);
 
             // Act
-            _uut.Manage(_tags, _tracks);
-            _uut.Manage(_tags, newTracks);
+            _uut.Manage(ref _tags, _tracks);
+            _uut.Manage(ref _tags, newTracks);
 
             // Assert
             Assert.That(_tags.Count, Is.EqualTo(4));
@@ -116,8 +116,8 @@ namespace AutomatedTomatoMasher.Test.Unit
             _airspaceChecker.Check(newTracks[0]).Returns(true);
 
             // Act
-            _uut.Manage(_tags, _tracks);
-            _uut.Manage(_tags, newTracks);
+            _uut.Manage(ref _tags, _tracks);
+            _uut.Manage(ref _tags, newTracks);
 
             // Assert
             Assert.That(_tags.Count, Is.EqualTo(3));

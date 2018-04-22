@@ -35,7 +35,7 @@ namespace AutomatedTomatoMasher.Test.Unit
         public void Manage_CallManage_NoTracksRemoved()
         {
             // Act
-            _uut.Manage(_tracks, _tags);
+            _uut.Manage(ref _tracks, _tags);
 
             //Assert
             Assert.That(_tracks.Count, Is.EqualTo(4));
@@ -48,7 +48,7 @@ namespace AutomatedTomatoMasher.Test.Unit
             _tags.Remove("2");
 
             // Act
-            _uut.Manage(_tracks, _tags);
+            _uut.Manage(ref _tracks, _tags);
 
             // Assert
             Assert.That(_tracks.Count, Is.EqualTo(2));
@@ -62,7 +62,7 @@ namespace AutomatedTomatoMasher.Test.Unit
             _tags.Remove("2");
 
             // Act
-            _uut.Manage(_tracks, _tags);
+            _uut.Manage(ref _tracks, _tags);
 
             // Assert
             Assert.That(_tracks[idx].Tag, Is.EqualTo(expectedTag));

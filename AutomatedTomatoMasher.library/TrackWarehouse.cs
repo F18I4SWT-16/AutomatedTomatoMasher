@@ -15,8 +15,8 @@ namespace AutomatedTomatoMasher.library
         private readonly IVelocityCalculator _velocityCalculator;
         private readonly ITracksManager _tracksManager;
 
-        private readonly List<Track> _tracksInAirspace;
-        private readonly List<string> _tagsInAirspace;
+        private List<Track> _tracksInAirspace;
+        private List<string> _tagsInAirspace;
 
         public TrackWarehouse(ITagsManager tagsManager, ICourseCalculator courseCalculator, 
             IVelocityCalculator velocityCalculator, ITracksManager tracksManager)
@@ -32,7 +32,7 @@ namespace AutomatedTomatoMasher.library
 
         public List<Track> Update(List<Track> tracks)
         {
-            _tagsManager.Manage(_tagsInAirspace, tracks);
+            _tagsManager.Manage(ref _tagsInAirspace, tracks);
 
             foreach (var track in tracks)
             {
@@ -40,12 +40,10 @@ namespace AutomatedTomatoMasher.library
                     _tracksInAirspace.Add(track);
             }
 
-            _tracksManager.Manage(_tracksInAirspace, _tagsInAirspace);
-
-            List<Track> calcTrackList = new List<Track>();
-
+            _tracksManager.Manage(ref _tracksInAirspace, _tagsInAirspace);
             foreach (var tag in _tagsInAirspace)
             {
+                var calcTrackList = new List<Track>();
                 foreach (var track in _tracksInAirspace)
                 {
                     if (track.Tag == tag)
@@ -64,7 +62,7 @@ namespace AutomatedTomatoMasher.library
                 }
             }
 
-            _tracksManager.Manage(tracks, _tagsInAirspace);
+            _tracksManager.Manage(ref tracks, _tagsInAirspace);
 
             return tracks;
         }
