@@ -13,7 +13,7 @@ using TransponderReceiver;
 namespace AutomatedTomatoMasher.Test.Integration
 {
     [TestFixture]
-    class IT8_CourseCalculator
+    class IT9_VelocityCalculator
     {
         private TrackReciever _trackReciever;
         private TrackObjectifier _trackObjectifier;
@@ -25,8 +25,8 @@ namespace AutomatedTomatoMasher.Test.Integration
         private AtmController _atmController;
         private IOutput _output;
         private TrackWarehouse _trackWarehouse;
-        private CourseCalculator _uut;
-        private IVelocityCalculator _velocityCalculator;
+        private CourseCalculator _courseCalculator;
+        private VelocityCalculator _uut;
         private ISeperationEventChecker _seperationEventChecker;
         private TracksManager _tracksManager;
         private TagsManager _tagsManager;
@@ -47,19 +47,19 @@ namespace AutomatedTomatoMasher.Test.Integration
             _tracksManager = new TracksManager();
             _airspaceChecker = Substitute.For<IAirspaceChecker>();
             _tagsManager = new TagsManager(_airspaceChecker);
-            _uut = new CourseCalculator();
-            _velocityCalculator = Substitute.For<IVelocityCalculator>();
+            _courseCalculator = new CourseCalculator();
+            _uut = new VelocityCalculator();
             _seperationEventChecker = Substitute.For<ISeperationEventChecker>();
 
-            _trackWarehouse = new TrackWarehouse(_tagsManager, _uut,
-                _velocityCalculator, _tracksManager, _seperationEventChecker);
+            _trackWarehouse = new TrackWarehouse(_tagsManager, _courseCalculator,
+                _uut, _tracksManager, _seperationEventChecker);
             _atmController = new AtmController(_trackTransmitter, _output, _trackWarehouse);
 
 
             _list = new List<string>
             {
                 "ATR423;10000;10000;14000;20151006213456000",
-                "ATR423;20000;10000;14000;20151006213457000"
+                "ATR423;10000;10100;14000;20151006213457000"
             };
 
 
@@ -73,10 +73,9 @@ namespace AutomatedTomatoMasher.Test.Integration
         }
 
         [Test]
-        public void CourseCalculator_Calculate_CourseIsCalculated()
+        public void VelocityCalculator_Calculate_VelocityIsCalculated()
         {
-            //Assert
-            Assert.That(_recievedTracks[0].Course, Is.EqualTo(90));
+            Assert.That(_recievedTracks[0].Velocity, Is.EqualTo(100));
         }
     }
 }
