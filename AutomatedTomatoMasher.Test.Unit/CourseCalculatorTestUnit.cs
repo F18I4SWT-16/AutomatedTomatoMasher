@@ -21,14 +21,16 @@ namespace AutomatedTomatoMasher.Test.Unit
             _uut = new CourseCalculator();
         }
 
+        [TestCase(-1,10000,359.99)]
+        [TestCase(0, 100, 0)]
         [TestCase(100, 100, 45)]
         [TestCase(100,-100,135)]
         [TestCase(-100,-100,225)]
         [TestCase(-100,100,315)]
-        [TestCase(0,100,0)]
         [TestCase(0, -100, 180)]
         [TestCase(100,0, 90)]
         [TestCase(-100, 0, 270)]
+    
 
         public void CalculatorCourse_MovementInAirspace_ReturnsCorrectCourse(int X, int Y, double result)
         {
