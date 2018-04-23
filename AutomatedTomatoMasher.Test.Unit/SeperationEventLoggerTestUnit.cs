@@ -18,15 +18,13 @@ namespace AutomatedTomatoMasher.Test.Unit
     public class SeperationEventLoggerTestUnit
     {
         private IOutput _output;
-        private IAirspaceFileReader _airspaceFileReader;
         private SeperationEventLogger _uut;
 
         [SetUp]
         public void Setup()
         {
             _output = Substitute.For<IOutput>();
-            _airspaceFileReader = Substitute.For<IAirspaceFileReader>();
-            _uut = new SeperationEventLogger(_output, _airspaceFileReader);
+            _uut = new SeperationEventLogger(_output);
         }
 
         [Test]
@@ -46,11 +44,12 @@ namespace AutomatedTomatoMasher.Test.Unit
 
             _uut.Log(trackList);
             
-            //var fileText = File.ReadLines("SeperationLogFile.txt");
             var fileText = File.ReadAllText("SeperationLogFile.txt");
 
             Assert.That(fileText,Is.EqualTo("Flights in Conflict: ATR423, ATR424\nTime stamp of conflict: 1996/12/12, at 12:12:12 and 12 milliseconds\n\r\n"));
         }
+
+
 
 
     }
