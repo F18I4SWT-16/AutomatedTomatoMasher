@@ -29,6 +29,8 @@ namespace AutomatedTomatoMasher.Test.Integration
         private ICourseCalculator _courseCalculator;
         private IVelocityCalculator _velocityCalculator;
         private ISeperationEventChecker _seperationEventChecker;
+        private ITracksManager _tracksManager;
+        private ITagsManager _tagsManager;
 
 
         [SetUp]
@@ -42,12 +44,13 @@ namespace AutomatedTomatoMasher.Test.Integration
 
             _trackReciever = new TrackReciever(_transponderReceiver, _trackObjectifier, _trackTransmitter);
             _output = Substitute.For<IOutput>();
+            _tracksManager = Substitute.For<ITracksManager>();
+            _tagsManager = Substitute.For<ITagsManager>();
             _airspaceChecker = Substitute.For<IAirspaceChecker>();
             _courseCalculator = Substitute.For<ICourseCalculator>();
             _velocityCalculator = Substitute.For<IVelocityCalculator>();
-
-
-            _uut = new TrackWarehouse(_airspaceChecker, _courseCalculator, _velocityCalculator);
+            
+            _uut = new TrackWarehouse(_tagsManager, _courseCalculator, _velocityCalculator, _tracksManager, _seperationEventChecker);
             _atmController = new AtmController(_trackTransmitter, _output, _uut);
 
 
