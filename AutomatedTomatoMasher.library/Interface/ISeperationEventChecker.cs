@@ -10,7 +10,7 @@ namespace AutomatedTomatoMasher.library.Interface
 {
     public interface ISeperationEventChecker
     {
-        event EventHandler<TransmitterTrackEventArgs> TrackReady;
+        event EventHandler<SeperationEventArgs> SeperationEvent;
         void Check(List<Track> tracks);
     }
 }
