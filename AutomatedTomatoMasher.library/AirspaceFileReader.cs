@@ -12,20 +12,25 @@ namespace AutomatedTomatoMasher.library
 {
     public class AirspaceFileReader : IAirspaceFileReader
     {
-        private readonly XmlSerializer _serializer;
-        private readonly FileStream _fileStream;
+        private XmlSerializer _serializer;
+        private FileStream _fileStream;
+        private readonly string _dir;
 
         public AirspaceFileReader()
         {
-            const string dir = @"...\...\...\Airspace.xml";
-
-            _serializer = new XmlSerializer(typeof(Airspace));
-            _fileStream = new FileStream(dir, FileMode.Open);
+            _dir = @"...\...\...\Airspace.xml";
         }
 
         public Airspace Read()
         {
-            return (Airspace) _serializer.Deserialize(_fileStream);
+            _serializer = new XmlSerializer(typeof(Airspace));
+            _fileStream = new FileStream(_dir, FileMode.Open);
+
+            var airspace = _serializer.Deserialize(_fileStream);
+
+            _fileStream.Close();
+
+            return (Airspace)airspace;
         }
     }
 }
