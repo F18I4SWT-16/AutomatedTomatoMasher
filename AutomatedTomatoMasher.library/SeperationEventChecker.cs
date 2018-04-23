@@ -12,7 +12,7 @@ namespace AutomatedTomatoMasher.library
 {
     public class SeperationEventChecker :ISeperationEventChecker
     {
-        public event EventHandler<TransmitterTrackEventArgs> TrackReady;
+        public event EventHandler<SeperationEventArgs> SeperationEvent;
         public void Check(List<Track> tracks)
         {
             int count = new int();
@@ -25,7 +25,7 @@ namespace AutomatedTomatoMasher.library
                     if (track.Tag != tracks[i].Tag &&
                         Math.Abs(track.Altitude - tracks[i].Altitude) < 300
                         && Math.Sqrt(Math.Pow(track.X - tracks[i].X,2) + Math.Pow(track.Y - tracks[i].Y,2)) < 5000)
-                        TrackReady?.Invoke(this, new TransmitterTrackEventArgs(new List<Track>(){track, tracks[i]}));
+                        SeperationEvent?.Invoke(this, new SeperationEventArgs(new List<Track>(){track, tracks[i]}));
                 }
             }
 

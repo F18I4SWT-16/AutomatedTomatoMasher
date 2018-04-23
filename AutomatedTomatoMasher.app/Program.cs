@@ -41,14 +41,15 @@ namespace AutomatedTomatoMasher.app
 
             IAirspaceChecker airspaceChecker = new AirspaceChecker(airspace);
 
+            ISeperationEventChecker seperationEventChecker = new SeperationEventChecker();
             IOutput output = new Output();
-            ISeperationEventLogger seperationEventLogger = new SeperationEventLogger(output);
+            ISeperationEventLogger seperationEventLogger = new SeperationEventLogger(output,seperationEventChecker);
             
             ICourseCalculator courseCalculator = new CourseCalculator();
             IVelocityCalculator velocityCalculator = new VelocityCalculator();
             ITracksManager tracksManager = new TracksManager();
             ITagsManager tagsManager = new TagsManager(airspaceChecker);
-            ISeperationEventChecker seperationEventChecker = new SeperationEventChecker();
+         
 
 
             ITrackWarehouse trackWarehouse = new TrackWarehouse(tagsManager, courseCalculator, velocityCalculator,

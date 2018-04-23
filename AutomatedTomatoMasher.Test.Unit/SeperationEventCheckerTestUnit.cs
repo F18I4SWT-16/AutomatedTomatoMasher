@@ -24,9 +24,9 @@ namespace AutomatedTomatoMasher.Test.Unit
         {
             _uut = new SeperationEventChecker();
             _tracksSeperated = new List<Track>();
-            _uut.TrackReady += (o, args) =>
+            _uut.SeperationEvent += (o, args) =>
             {
-                _tracksSeperated = args.TrackList;
+                _tracksSeperated = args.Tracks;
             };
             
         }
