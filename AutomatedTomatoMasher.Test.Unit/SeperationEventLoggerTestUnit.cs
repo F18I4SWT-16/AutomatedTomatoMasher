@@ -37,19 +37,19 @@ namespace AutomatedTomatoMasher.Test.Unit
             track1.TimeStamp = new DateTime(1996, 12, 12, 12, 12, 12, 12);
 
             Track track2 = new Track();
-            track1.Tag = "ATR424";
-            track1.TimeStamp = new DateTime(1996, 12, 12, 12, 12, 12, 12);
+            track2.Tag = "ATR424";
+            track2.TimeStamp = new DateTime(1996, 12, 12, 12, 12, 12, 12);
 
-            List<Track> TrackList = new List<Track>();
-            TrackList.Add(track1);
-            TrackList.Add(track2);
+            List<Track> trackList = new List<Track>();
+            trackList.Add(track1);
+            trackList.Add(track2);
 
-            _uut.Log(TrackList);
+            _uut.Log(trackList);
             
-            var fileText = File.ReadLines("SeperationLogFile.txt");
-            
+            //var fileText = File.ReadLines("SeperationLogFile.txt");
+            var fileText = File.ReadAllText("SeperationLogFile.txt");
 
-            Assert.That(fileText.ToString(),Is.EqualTo("Flights in Conflict: ATR423, ATR424\nTime stamp of conflict: 1996 /12/12, at 12:12:12 and 12 milliseconds\n"));
+            Assert.That(fileText,Is.EqualTo("Flights in Conflict: ATR423, ATR424\nTime stamp of conflict: 1996/12/12, at 12:12:12 and 12 milliseconds\n\r\n"));
         }
 
 

@@ -22,7 +22,7 @@ namespace AutomatedTomatoMasher.library
 
         public void Log(List<Track> tracks)
         {
-            using (FileStream output = new FileStream("SeperationLogFile.txt", FileMode.Append, FileAccess.Write))
+            using (FileStream output = new FileStream("SeperationLogFile.txt", FileMode.Create, FileAccess.Write))
             using (StreamWriter fileWriter = new StreamWriter(output))
             {
                 fileWriter.WriteLine("Flights in Conflict: " + tracks[0].Tag + ", " + tracks[1].Tag + "\nTime stamp of conflict: " +
