@@ -47,7 +47,7 @@ namespace AutomatedTomatoMasher.Test.Unit
             // Act
             _uut.Transmit(trackList);
 
-            // Assert   
+            // Assert
             Assert.That(trackList, Is.EqualTo(_tracksTransmitted));
         }
 
