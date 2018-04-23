@@ -71,7 +71,7 @@ namespace AutomatedTomatoMasher.Test.Unit
             _uut.Check(_trackList);
 
             //Assert
-            Assert.That(_tracksSeperated, Is.EqualTo(null));
+            Assert.That(_tracksSeperated, Is.Empty);
         }
 
         [Test]
@@ -83,11 +83,14 @@ namespace AutomatedTomatoMasher.Test.Unit
             Track t1 = new Track() { Tag = "Tag1", Altitude = 5000, X = 10000, Y = 10000 };
             Track t2 = new Track() { Tag = "Tag1", Altitude = 4701, X = 13535, Y = 13535 };
 
+            _trackList.Add(t1);
+            _trackList.Add(t2);
+
             //Act
             _uut.Check(_trackList);
 
             //Assert
-            Assert.That(_tracksSeperated, Is.EqualTo(null));
+            Assert.That(_tracksSeperated, Is.Empty);
         }
         
     }
