@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutomatedTomatoMasher.library.DTO;
-using AutomatedTomatoMasher.library.Event;
 
 namespace AutomatedTomatoMasher.library.Interface
 {
-    public interface ISeperationEventLogger
+    public interface ITracksManager
     {
-        void Log(List<Track> tracks);
+        void Manage(ref List<Track> tracks, List<string> tags);
     }
 }
