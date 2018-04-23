@@ -59,6 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IT10_SeperationEventChecker.cs" />
     <Compile Include="IT1_TrackReciever.cs" />
     <Compile Include="IT2_DateTimeBuilder.cs" />
     <Compile Include="IT3_TrackTransmitter.cs" />
