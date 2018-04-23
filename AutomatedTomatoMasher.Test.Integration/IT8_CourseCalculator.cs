@@ -13,7 +13,7 @@ using TransponderReceiver;
 namespace AutomatedTomatoMasher.Test.Integration
 {
     [TestFixture]
-    class IT7_TrackManager
+    class IT8_CourseCalculator
     {
         private TrackReciever _trackReciever;
         private TrackObjectifier _trackObjectifier;
@@ -25,14 +25,12 @@ namespace AutomatedTomatoMasher.Test.Integration
         private AtmController _atmController;
         private IOutput _output;
         private TrackWarehouse _trackWarehouse;
-        private ICourseCalculator _courseCalculator;
+        private CourseCalculator _uut;
         private IVelocityCalculator _velocityCalculator;
         private ISeperationEventChecker _seperationEventChecker;
-        private TracksManager _uut;
+        private TracksManager _tracksManager;
         private TagsManager _tagsManager;
         private IAirspaceChecker _airspaceChecker;
-
-
 
         [SetUp]
         public void SetUp()
@@ -46,22 +44,28 @@ namespace AutomatedTomatoMasher.Test.Integration
             _trackReciever = new TrackReciever(_transponderReceiver,
                 _trackObjectifier, _trackTransmitter);
             _output = Substitute.For<IOutput>();
-            _uut = new TracksManager();
+            _tracksManager = new TracksManager();
             _airspaceChecker = Substitute.For<IAirspaceChecker>();
             _tagsManager = new TagsManager(_airspaceChecker);
-            _courseCalculator = Substitute.For<ICourseCalculator>();
+            _uut = new CourseCalculator();
             _velocityCalculator = Substitute.For<IVelocityCalculator>();
             _seperationEventChecker = Substitute.For<ISeperationEventChecker>();
 
-            _trackWarehouse = new TrackWarehouse(_tagsManager, _courseCalculator,
-                _velocityCalculator, _uut, _seperationEventChecker);
+            _trackWarehouse = new TrackWarehouse(_tagsManager, _uut,
+                _velocityCalculator, _tracksManager, _seperationEventChecker);
             _atmController = new AtmController(_trackTransmitter, _output, _trackWarehouse);
 
 
-            _list = new List<string> {"ATR423;39045;12932;14000;20151006213456000"};
+            _list = new List<string>
+            {
+                "ATR423;10000;10000;14000;20151006213456000",
+                "ATR423;20000;10000;14000;20151006213457000"
+            };
+
 
             _trackTransmitter.TrackReady += (o, args) => { _recievedTracks = args.TrackList; };
 
+            _airspaceChecker.Check(new Track()).ReturnsForAnyArgs(true);
 
             // Act
             _transponderReceiver.TransponderDataReady +=
@@ -69,9 +73,10 @@ namespace AutomatedTomatoMasher.Test.Integration
         }
 
         [Test]
-        public void TrackManager_Manage_TrackIsRemoved()
+        public void CourseCalculator_Calculate_CourseIsCalculated()
         {
-            Assert.That(_recievedTracks, Is.Empty);
+            //Assert
+            Assert.That(_recievedTracks[0].Course, Is.EqualTo(90));
         }
     }
 }

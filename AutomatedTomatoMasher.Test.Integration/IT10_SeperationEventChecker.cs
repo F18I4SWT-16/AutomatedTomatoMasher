@@ -13,7 +13,7 @@ using TransponderReceiver;
 namespace AutomatedTomatoMasher.Test.Integration
 {
     [TestFixture]
-    class IT7_TrackManager
+    class IT10_SeperationEventChecker
     {
         private TrackReciever _trackReciever;
         private TrackObjectifier _trackObjectifier;
@@ -25,14 +25,14 @@ namespace AutomatedTomatoMasher.Test.Integration
         private AtmController _atmController;
         private IOutput _output;
         private TrackWarehouse _trackWarehouse;
-        private ICourseCalculator _courseCalculator;
-        private IVelocityCalculator _velocityCalculator;
-        private ISeperationEventChecker _seperationEventChecker;
-        private TracksManager _uut;
+        private CourseCalculator _courseCalculator;
+        private VelocityCalculator _velocityCalculator;
+        private SeperationEventChecker _uut;
+        private TracksManager _tracksManager;
         private TagsManager _tagsManager;
         private IAirspaceChecker _airspaceChecker;
-
-
+        private ISeperationEventLogger _seperationEventLogger;
+        private List<Track> _checkedTracks;
 
         [SetUp]
         public void SetUp()
@@ -46,22 +46,31 @@ namespace AutomatedTomatoMasher.Test.Integration
             _trackReciever = new TrackReciever(_transponderReceiver,
                 _trackObjectifier, _trackTransmitter);
             _output = Substitute.For<IOutput>();
-            _uut = new TracksManager();
+            _tracksManager = new TracksManager();
             _airspaceChecker = Substitute.For<IAirspaceChecker>();
             _tagsManager = new TagsManager(_airspaceChecker);
-            _courseCalculator = Substitute.For<ICourseCalculator>();
-            _velocityCalculator = Substitute.For<IVelocityCalculator>();
-            _seperationEventChecker = Substitute.For<ISeperationEventChecker>();
+            _courseCalculator = new CourseCalculator();
+            _velocityCalculator = new VelocityCalculator();
+            _uut = new SeperationEventChecker();
+            _seperationEventLogger = Substitute.For<ISeperationEventLogger>();
 
             _trackWarehouse = new TrackWarehouse(_tagsManager, _courseCalculator,
-                _velocityCalculator, _uut, _seperationEventChecker);
+                _velocityCalculator, _tracksManager, _uut);
             _atmController = new AtmController(_trackTransmitter, _output, _trackWarehouse);
+            
 
 
-            _list = new List<string> {"ATR423;39045;12932;14000;20151006213456000"};
+            _list = new List<string>
+            {
+                "ATR423;10000;10000;14000;20151006213456000",
+                "ATR424;10000;10100;14000;20151006213456000"
+            };
+
 
             _trackTransmitter.TrackReady += (o, args) => { _recievedTracks = args.TrackList; };
+            _uut.SeperationEvent += (o, args) => {_checkedTracks = args.Tracks; };
 
+            _airspaceChecker.Check(new Track()).ReturnsForAnyArgs(true);
 
             // Act
             _transponderReceiver.TransponderDataReady +=
@@ -69,9 +78,9 @@ namespace AutomatedTomatoMasher.Test.Integration
         }
 
         [Test]
-        public void TrackManager_Manage_TrackIsRemoved()
+        public void SeperationEventChecker_Check_WasCalledCorrectly()
         {
-            Assert.That(_recievedTracks, Is.Empty);
+            Assert.That(_checkedTracks, Is.EqualTo(_recievedTracks));
         }
     }
 }
