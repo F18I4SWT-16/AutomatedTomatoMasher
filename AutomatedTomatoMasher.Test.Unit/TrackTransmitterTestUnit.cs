@@ -40,7 +40,7 @@ namespace AutomatedTomatoMasher.Test.Unit
                     X = 39045,
                     Y = 12932,
                     Altitude = 14000,
-                    TimeStamp = new DateTime(2015, 10, 06, 21, 34, 56, 789)
+                    Timestamp = new DateTime(2015, 10, 06, 21, 34, 56, 789)
                 }
             };
 

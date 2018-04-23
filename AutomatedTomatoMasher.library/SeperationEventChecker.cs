@@ -18,7 +18,6 @@ namespace AutomatedTomatoMasher.library
             int count = new int();
             foreach (var track in tracks)
             {
-                
                 count++;
                 for (int i = count; i < tracks.Count; i++)
                 {
@@ -28,7 +27,6 @@ namespace AutomatedTomatoMasher.library
                         SeperationEvent?.Invoke(this, new SeperationEventArgs(new List<Track>(){track, tracks[i]}));
                 }
             }
-
         }
     }
 }

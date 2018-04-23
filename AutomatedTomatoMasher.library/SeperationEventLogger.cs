@@ -24,18 +24,16 @@ namespace AutomatedTomatoMasher.library
         private void Log(object sender, SeperationEventArgs args)
         {
             string fullDirectory = @"...\...\...\";
-            using (FileStream output = new FileStream(fullDirectory+ "/SeperationLogFile.txt", FileMode.Append, FileAccess.Write))
+            using (FileStream output = new FileStream(fullDirectory + "/SeperationLogFile.txt", FileMode.Append, FileAccess.Write))
             using (StreamWriter fileWriter = new StreamWriter(output))
             {
                 fileWriter.WriteLine("Flights in Conflict: " + args.Tracks[0].Tag + ", " + args.Tracks[1].Tag + "\nTime stamp of conflict: " +
-                                     args.Tracks[0].TimeStamp.Year + "/" + args.Tracks[0].TimeStamp.Month + "/" + args.Tracks[0].TimeStamp.Day +
-                                     ", at " + args.Tracks[0].TimeStamp.Hour + ":" + args.Tracks[0].TimeStamp.Minute + ":" +
-                                     args.Tracks[0].TimeStamp.Second + " and " + args.Tracks[0].TimeStamp.Millisecond + " milliseconds");
+                                     args.Tracks[0].Timestamp.Year + "/" + args.Tracks[0].Timestamp.Month + "/" + args.Tracks[0].Timestamp.Day +
+                                     ", at " + args.Tracks[0].Timestamp.Hour + ":" + args.Tracks[0].Timestamp.Minute + ":" +
+                                     args.Tracks[0].Timestamp.Second + " and " + args.Tracks[0].Timestamp.Millisecond + " milliseconds");
                 fileWriter.Close();
             }
             _output.Write(args.Tracks);
         }
-
-
     }
 }
