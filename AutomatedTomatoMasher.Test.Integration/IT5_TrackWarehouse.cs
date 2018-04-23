@@ -29,6 +29,8 @@ namespace AutomatedTomatoMasher.Test.Integration
         private ICourseCalculator _courseCalculator;
         private IVelocityCalculator _velocityCalculator;
         private ISeperationEventChecker _seperationEventChecker;
+        private ITracksManager _tracksManager;
+        private ITagsManager _tagsManager;
 
 
         [SetUp]
@@ -40,24 +42,47 @@ namespace AutomatedTomatoMasher.Test.Integration
 
             _trackObjectifier = new TrackObjectifier(_dateTimeBuilder);
 
-            _trackReciever = new TrackReciever(_transponderReceiver, _trackObjectifier, _trackTransmitter);
+            _trackReciever = new TrackReciever(_transponderReceiver, 
+                _trackObjectifier, _trackTransmitter);
             _output = Substitute.For<IOutput>();
+            _tracksManager = Substitute.For<ITracksManager>();
+            _tagsManager = Substitute.For<ITagsManager>();
             _airspaceChecker = Substitute.For<IAirspaceChecker>();
             _courseCalculator = Substitute.For<ICourseCalculator>();
             _velocityCalculator = Substitute.For<IVelocityCalculator>();
+            _seperationEventChecker = Substitute.For<ISeperationEventChecker>();
 
-
-            _uut = new TrackWarehouse(_airspaceChecker, _courseCalculator, _velocityCalculator);
+            _uut = new TrackWarehouse(_tagsManager, _courseCalculator, 
+                _velocityCalculator, _tracksManager, _seperationEventChecker);
             _atmController = new AtmController(_trackTransmitter, _output, _uut);
 
 
             _list = new List<string> {"ATR423;39045;12932;14000;20151006213456000"};
 
             _trackTransmitter.TrackReady += (o, args) => { _recievedTracks = args.TrackList; };
+        }
+
+        [Test]
+        public void TrackWarehouse_TagsManagerManage_WasCalledCorrectly()
+        {
+            // Arrange
+            var tags = new List<string>{ "ATR423" };
+            _tagsManager.WhenForAnyArgs(x => x.Manage(ref tags, 
+                    new List<Track>()))
+                .Do(x => x[0] = tags);
 
             // Act
             _transponderReceiver.TransponderDataReady +=
                 Raise.EventWith(new RawTransponderDataEventArgs(_list));
+
+            // Assert
+            //_tagsManager.Received(1).Manage(ref tags, _recievedTracks); 
+        }
+
+        [Test]
+        public void TrackWarehous_TrackManagerManage_WasCalledCorrectly()
+        {
+
         }
     }
 }

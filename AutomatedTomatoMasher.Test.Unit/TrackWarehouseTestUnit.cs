@@ -20,6 +20,7 @@ namespace AutomatedTomatoMasher.Test.Unit
         private TrackWarehouse _uut;
 
         private List<Track> _tracks;
+        private List<string> _tags;
 
         [SetUp]
         public void Setup()
@@ -38,12 +39,22 @@ namespace AutomatedTomatoMasher.Test.Unit
                 new Track() {Tag = "1" }
             };
 
-            var tags = new List<string> { "1", "2" };
+            _tags = new List<string> { "1", "2" };
             // Det gør ingen forskel, hvad der står i x.Manage()
-            _tagsManager.WhenForAnyArgs(x => x.Manage(ref tags, _tracks))
-                .Do(x => x[0] = tags);
+            _tagsManager.WhenForAnyArgs(x => x.Manage(ref _tags, _tracks))
+                .Do(x => x[0] = _tags);
         }
 
+        [Test]
+        public void Update_AddTracks_TracksManagerCalledWithCorrectTracks()
+        {
+            // Act
+            _uut.Update(_tracks);
+
+            // Assert
+            _tracksManager.Received(1).Manage(ref _tracks, _tags);
+        }
+        
         [TestCase(2, 0, 2)]
         [TestCase(1, 1, 1)]
         public void Update_AddTracks_VelocityCalledWithCorrectTracks(int nCalls, 
@@ -94,7 +105,7 @@ namespace AutomatedTomatoMasher.Test.Unit
         [TestCase(0, 0, 2)]
         [TestCase(1, 1, 1)]
         [TestCase(2, 0, 2)]
-        public void Update_AddTracks_VelovityIsCalculated(int expectecTrack, 
+        public void Update_AddTracks_VelocityIsCalculated(int expectecTrack, 
             int idx1, int idx2)
         {
             // Arrange

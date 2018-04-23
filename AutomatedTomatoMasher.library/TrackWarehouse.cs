@@ -14,7 +14,7 @@ namespace AutomatedTomatoMasher.library
         private readonly ICourseCalculator _courseCalculator;
         private readonly IVelocityCalculator _velocityCalculator;
         private readonly ITracksManager _tracksManager;
-        private ISeperationEventChecker _seperationEventChecker;
+        private readonly ISeperationEventChecker _seperationEventChecker;
 
         private List<Track> _tracksInAirspace;
         private List<string> _tagsInAirspace;
