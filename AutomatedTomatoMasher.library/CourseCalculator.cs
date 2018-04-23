@@ -15,34 +15,15 @@ namespace AutomatedTomatoMasher.library
             Track Oldest = trackList.OrderBy(x => x.TimeStamp).FirstOrDefault();
             Track Newest = trackList.OrderByDescending(x => x.TimeStamp).FirstOrDefault();
 
-         
-            int Xdif = Newest.X - Oldest.X;
-              
-            int Ydif = Newest.Y - Oldest.Y;
+            var Xdif = Newest.X - Oldest.X;
+            var Ydif = Newest.Y - Oldest.Y;
 
-            if (Xdif == 0 && Newest.Y > Oldest.Y)
-            {
-                return 0;
-            }
-            if (Xdif == 0 && Newest.Y < Oldest.Y)
-            {
-                return 180;
-            }
+            var theta = Math.Atan2(Xdif, Ydif);
+            var angle = ((theta * 180 / Math.PI) + 360 % 360);
 
-            if (Ydif == 0 && Newest.X > Oldest.X)
-            {
-                return 90;
-            }
-            if (Ydif == 0 && Newest.X < Oldest.X)
-            {
-                return 270;
-            }
-
-            double frac = Xdif/Ydif;
-
-            double angleInRadian = Math.Atan(frac);
-            return angleInRadian * (180.0 / Math.PI);
-
+            if (angle < 0)
+                angle = 360 + angle;
+            return Math.Round(angle, 2);
         }
     }
 }
