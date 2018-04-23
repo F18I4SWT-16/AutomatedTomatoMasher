@@ -38,7 +38,7 @@ namespace AutomatedTomatoMasher.Test.Unit
                 Altitude = 13000,
                 X = 40000,
                 Y = 13000,
-                TimeStamp = new DateTime(2010, 12, 12, 12, 12, 12, 12),
+                Timestamp = new DateTime(2010, 12, 12, 12, 12, 12, 12),
                 Tag = "ATM-Test"
             };
 
@@ -65,7 +65,7 @@ namespace AutomatedTomatoMasher.Test.Unit
                 Altitude = 1,
                 Course = 2,
                 Tag = "3",
-                TimeStamp = new DateTime(1,2,3),
+                Timestamp = new DateTime(1,2,3),
                 Velocity = 4,
                 X = 5,
                 Y = 6

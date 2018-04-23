@@ -18,7 +18,7 @@ namespace AutomatedTomatoMasher.Test.Unit
         public void ToString_PrintsTrackCorrectly()
         {
             //Arrange
-            _uut = new Track() {Altitude = 1, TimeStamp = 
+            _uut = new Track() {Altitude = 1, Timestamp = 
                 new DateTime().Date, Tag = "1", Y = 2, X = 3,
                 Course = 90, Velocity = 100};
 

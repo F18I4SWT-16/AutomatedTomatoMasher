@@ -75,7 +75,7 @@ namespace AutomatedTomatoMasher.Test.Integration
         public void TrackTransmitter_Transmit_CorrectTimestampRecieved()
         {
             // Assert
-            Assert.That(_recievedTracks[0].TimeStamp, Is.EqualTo(new DateTime(2015,10,6,21,34,56)));
+            Assert.That(_recievedTracks[0].Timestamp, Is.EqualTo(new DateTime(2015,10,6,21,34,56)));
         }
 
     }

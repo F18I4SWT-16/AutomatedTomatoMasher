@@ -12,8 +12,8 @@ namespace AutomatedTomatoMasher.library
     {
         public double Calculate(List<Track> trackList)
         {
-            Track Oldest = trackList.OrderBy(x => x.TimeStamp).FirstOrDefault();
-            Track Newest = trackList.OrderByDescending(x => x.TimeStamp).FirstOrDefault();
+            Track Oldest = trackList.OrderBy(x => x.Timestamp).FirstOrDefault();
+            Track Newest = trackList.OrderByDescending(x => x.Timestamp).FirstOrDefault();
 
             var Xdif = Newest.X - Oldest.X;
             var Ydif = Newest.Y - Oldest.Y;

@@ -32,7 +32,7 @@ namespace AutomatedTomatoMasher.library
                     X = Convert.ToInt32(splitStrings[1]),
                     Y = Convert.ToInt32(splitStrings[2]),
                     Altitude = Convert.ToInt32(splitStrings[3]),
-                    TimeStamp = _dateTimeBuilder.Build(splitStrings[4])
+                    Timestamp = _dateTimeBuilder.Build(splitStrings[4])
                 };
 
                 trackList.Add(track);

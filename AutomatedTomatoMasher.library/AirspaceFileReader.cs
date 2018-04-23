@@ -12,7 +12,6 @@ namespace AutomatedTomatoMasher.library
 {
     public class AirspaceFileReader : IAirspaceFileReader
     {
-
         private readonly XmlSerializer _serializer;
         private readonly FileStream _fileStream;
 
