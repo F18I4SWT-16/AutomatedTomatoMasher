@@ -16,11 +16,12 @@ namespace AutomatedTomatoMasher.app
     {
         static void Main(string[] args)
         {
+            Airspace airspace = new Airspace();
             try
             {
                 AirspaceFileReader airspaceFileReader = new AirspaceFileReader();
 
-                Airspace airspace = airspaceFileReader.Read();
+                airspace = airspaceFileReader.Read();
             }
             catch (Exception e)
             {
@@ -37,6 +38,23 @@ namespace AutomatedTomatoMasher.app
             ITrackTransmitter trackTransmitter = new TrackTransmitter();
 
             TrackReciever trackReciever = new TrackReciever(transponderReceiver, trackObjectifier, trackTransmitter);
+
+            IAirspaceChecker airspaceChecker = new AirspaceChecker(airspace);
+
+            IOutput output = new Output();
+            ISeperationEventLogger seperationEventLogger = new SeperationEventLogger(output);
+            
+            ICourseCalculator courseCalculator = new CourseCalculator();
+            IVelocityCalculator velocityCalculator = new VelocityCalculator();
+            ITracksManager tracksManager = new TracksManager();
+            ITagsManager tagsManager = new TagsManager(airspaceChecker);
+            ISeperationEventChecker seperationEventChecker = new SeperationEventChecker();
+
+
+            ITrackWarehouse trackWarehouse = new TrackWarehouse(tagsManager, courseCalculator, velocityCalculator,
+                tracksManager, seperationEventChecker);
+
+            AtmController atmController = new AtmController(trackTransmitter,output,trackWarehouse);
 
 
             Console.ReadKey();

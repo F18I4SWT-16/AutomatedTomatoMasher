@@ -13,11 +13,10 @@ namespace AutomatedTomatoMasher.library
     public class SeperationEventLogger: ISeperationEventLogger
     {
         private readonly IOutput _output;
-        private IAirspaceFileReader _airspaceFileReader;
-        public SeperationEventLogger(IOutput output, IAirspaceFileReader airspaceFileReader)
+        
+        public SeperationEventLogger(IOutput output)
         {
             _output = output;
-            _airspaceFileReader = airspaceFileReader;
         }
 
         public void Log(List<Track> tracks)
@@ -31,8 +30,6 @@ namespace AutomatedTomatoMasher.library
                                      tracks[0].TimeStamp.Second + " and " + tracks[0].TimeStamp.Millisecond + " milliseconds\n");
                 fileWriter.Close();
             }
-
-
             _output.Write(tracks);
         }
 
