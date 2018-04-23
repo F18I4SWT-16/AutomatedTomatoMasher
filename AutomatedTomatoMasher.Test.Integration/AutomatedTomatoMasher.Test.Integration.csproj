@@ -59,11 +59,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IT10_SeperationEventChecker.cs" />
     <Compile Include="IT1_TrackReciever.cs" />
     <Compile Include="IT2_DateTimeBuilder.cs" />
     <Compile Include="IT3_TrackTransmitter.cs" />
     <Compile Include="IT4_AtmController.cs" />
     <Compile Include="IT5_TrackWarehouse.cs" />
+    <Compile Include="IT6_TagsManager.cs" />
+    <Compile Include="IT7_TrackManager.cs" />
+    <Compile Include="IT8_CourseCalculator.cs" />
+    <Compile Include="IT9_VelocityCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
