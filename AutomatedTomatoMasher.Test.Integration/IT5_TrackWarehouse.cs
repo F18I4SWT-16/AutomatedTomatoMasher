@@ -32,6 +32,8 @@ namespace AutomatedTomatoMasher.Test.Integration
         private ITracksManager _tracksManager;
         private ITagsManager _tagsManager;
 
+        private List<string> _tags;
+
 
         [SetUp]
         public void SetUp()
@@ -60,21 +62,21 @@ namespace AutomatedTomatoMasher.Test.Integration
             _list = new List<string> {"ATR423;39045;12932;14000;20151006213456000"};
 
             _trackTransmitter.TrackReady += (o, args) => { _recievedTracks = args.TrackList; };
+
+            // Arrange
+            _tags = new List<string> { "ATR423" };
+            _tagsManager.WhenForAnyArgs(x => x.Manage(ref _tags,
+                    new List<Track>()))
+                .Do(x => x[0] = _tags);
+
+            // Act
+            _transponderReceiver.TransponderDataReady +=
+                Raise.EventWith(new RawTransponderDataEventArgs(_list));
         }
 
         [Test]
         public void TrackWarehouse_TagsManagerManage_WasCalledCorrectly()
         {
-            // Arrange
-            var tags = new List<string>{ "ATR423" };
-            _tagsManager.WhenForAnyArgs(x => x.Manage(ref tags, 
-                    new List<Track>()))
-                .Do(x => x[0] = tags);
-
-            // Act
-            _transponderReceiver.TransponderDataReady +=
-                Raise.EventWith(new RawTransponderDataEventArgs(_list));
-
             // Assert
             //_tagsManager.Received(1).Manage(ref tags, _recievedTracks); 
         }
@@ -82,7 +84,29 @@ namespace AutomatedTomatoMasher.Test.Integration
         [Test]
         public void TrackWarehous_TrackManagerManage_WasCalledCorrectly()
         {
+            //Assert
+            _tracksManager.Received().Manage(ref _recievedTracks, _tags);
+        }
 
+        [Test]
+        public void TrackWarehouse_VelocityCalculate_WasCalledCorrectly()
+        {
+            //Assert
+            _velocityCalculator.Received().Calculate(Arg.Is<List<Track>>(x => x.Contains(_recievedTracks[0]) && x.Count == 1));
+        }
+
+        [Test]
+        public void TrackWarehouse_CourseCalculate_WasCalledCorrectly()
+        {
+            //Assert
+            _courseCalculator.Received().Calculate(Arg.Is<List<Track>>(x => x.Contains(_recievedTracks[0]) && x.Count == 1));
+        }
+
+        [Test]
+        public void TrackWarehouse_SeperationCheck_WasCalledCorrectly()
+        {
+            //Assert
+            _seperationEventChecker.Received().Check(Arg.Is<List<Track>>(x => x.Contains(_recievedTracks[0]) && x.Count == 1));
         }
     }
 }
