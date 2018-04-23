@@ -37,7 +37,7 @@ namespace AutomatedTomatoMasher.Test.Integration
             private TagsManager _tagsManager;
             private AirspaceChecker _uut;
             private ISeperationEventLogger _seperationEventLogger;
-            private List<Track> _checkedTracks;
+            //private List<Track> _checkedTracks;
             private Airspace _airspace; 
 
             [SetUp]
