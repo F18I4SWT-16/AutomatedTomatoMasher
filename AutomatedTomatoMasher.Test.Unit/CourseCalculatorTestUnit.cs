@@ -22,6 +22,9 @@ namespace AutomatedTomatoMasher.Test.Unit
         }
 
         [TestCase(100, 100, 45)]
+        [TestCase(100,-100,135)]
+        [TestCase(-100,-100,225)]
+        [TestCase(-100,100,315)]
         [TestCase(0,100,0)]
         [TestCase(0, -100, 180)]
         [TestCase(100,0, 90)]
