@@ -94,7 +94,7 @@ namespace AutomatedTomatoMasher.Test.Unit
         [TestCase(0, 0, 2)]
         [TestCase(1, 1, 1)]
         [TestCase(2, 0, 2)]
-        public void Update_AddTracks_VelovityIsCalculated(int expectecTrack, 
+        public void Update_AddTracks_VelocityIsCalculated(int expectecTrack, 
             int idx1, int idx2)
         {
             // Arrange
