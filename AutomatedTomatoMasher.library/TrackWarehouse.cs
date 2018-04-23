@@ -46,12 +46,12 @@ namespace AutomatedTomatoMasher.library
             _tracksManager.Manage(ref _tracksInAirspace, _tagsInAirspace);
             foreach (var tag in _tagsInAirspace)
             {
-                var calcTrackList = new List<Track>();
+                var calcTracks = new List<Track>();
                 foreach (var track in _tracksInAirspace)
                 {
                     if (track.Tag == tag)
                     {
-                        calcTrackList.Add(track);
+                        calcTracks.Add(track);
                     }
                 }
 
@@ -59,8 +59,8 @@ namespace AutomatedTomatoMasher.library
                 {
                     if (track.Tag == tag)
                     {
-                        track.Velocity = _velocityCalculator.Calculate(calcTrackList);
-                        track.Course = _courseCalculator.Calculate(calcTrackList);
+                        track.Velocity = _velocityCalculator.Calculate(calcTracks);
+                        track.Course = _courseCalculator.Calculate(calcTracks);
                     }
                 }
             }

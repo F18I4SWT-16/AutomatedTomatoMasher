@@ -45,11 +45,11 @@ namespace AutomatedTomatoMasher.Test.Unit
 
             Track track1 = new Track();
             track1.Tag = "ATR423";
-            track1.TimeStamp = new DateTime(1996, 12, 12, 12, 12, 12, 12);
+            track1.Timestamp = new DateTime(1996, 12, 12, 12, 12, 12, 12);
 
             Track track2 = new Track();
             track2.Tag = "ATR424";
-            track2.TimeStamp = new DateTime(1996, 12, 12, 12, 12, 12, 12);
+            track2.Timestamp = new DateTime(1996, 12, 12, 12, 12, 12, 12);
 
             List<Track> trackList = new List<Track>();
             trackList.Add(track1);

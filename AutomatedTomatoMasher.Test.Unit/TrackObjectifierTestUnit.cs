@@ -63,7 +63,7 @@ namespace AutomatedTomatoMasher.Test.Unit
         public void Objectify_ReturnsCorrectTimeStamp()
         {
             //Act and Assert
-            Assert.That(new DateTime(2015, 10, 06, 21, 34, 56, 789), Is.EqualTo(_uut.Objectify(_stringList)[0].TimeStamp));
+            Assert.That(new DateTime(2015, 10, 06, 21, 34, 56, 789), Is.EqualTo(_uut.Objectify(_stringList)[0].Timestamp));
         }
 
     }

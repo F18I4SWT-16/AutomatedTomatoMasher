@@ -12,14 +12,14 @@ namespace AutomatedTomatoMasher.library
     {
         public double Calculate(List<Track> trackList)
         {
-            Track Oldest = trackList.OrderBy(x => x.TimeStamp).FirstOrDefault();
-            Track Newest = trackList.OrderByDescending(x => x.TimeStamp).FirstOrDefault();
+            Track Oldest = trackList.OrderBy(x => x.Timestamp).FirstOrDefault();
+            Track Newest = trackList.OrderByDescending(x => x.Timestamp).FirstOrDefault();
 
             int Xdif;
             int Ydif;
             int Altitudedif;
 
-            TimeSpan Timedif = Newest.TimeStamp.Subtract(Oldest.TimeStamp);
+            TimeSpan Timedif = Newest.Timestamp.Subtract(Oldest.Timestamp);
             double Secdif = Timedif.TotalSeconds;
 
 

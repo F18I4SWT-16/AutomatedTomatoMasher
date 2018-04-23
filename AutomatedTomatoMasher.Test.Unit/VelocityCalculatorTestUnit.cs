@@ -47,7 +47,7 @@ namespace AutomatedTomatoMasher.Test.Unit
                     X = 20000,
                     Y = 20000,
                     Altitude = 5000,
-                    TimeStamp = new DateTime(2018, 01, 01, 00, 00, 00, 000)
+                    Timestamp = new DateTime(2018, 01, 01, 00, 00, 00, 000)
                 },
                 new Track()
                 {
@@ -55,7 +55,7 @@ namespace AutomatedTomatoMasher.Test.Unit
                     X = 20000+X,
                     Y = 20000+Y,
                     Altitude = 5000+altitude,
-                    TimeStamp = new DateTime(2018, 01, 01, 00, 00, 00+time, 000)
+                    Timestamp = new DateTime(2018, 01, 01, 00, 00, 00+time, 000)
                 }
             };
 

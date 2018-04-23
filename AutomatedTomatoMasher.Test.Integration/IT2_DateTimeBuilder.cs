@@ -68,7 +68,7 @@ namespace AutomatedTomatoMasher.Test.Integration
         public void DateTimeBuilder_Build_CorrectTimeStampReturned()
         {
             //Act & Assert
-            Assert.That(_trackObjectifier.Objectify(_list)[0].TimeStamp, Is.EqualTo(new DateTime(2015, 10, 06, 21, 34, 56)));
+            Assert.That(_trackObjectifier.Objectify(_list)[0].Timestamp, Is.EqualTo(new DateTime(2015, 10, 06, 21, 34, 56)));
         }
 
     }
