@@ -59,7 +59,7 @@ namespace AutomatedTomatoMasher.Test.Integration
                 _seperationEventLogger = Substitute.For<ISeperationEventLogger>();
                 
                 ////Act
-                _airspace = new Airspace() { MaxAltitude = 20000, MinAltitude = 500, NorthEast = new Corner() { X = 90000, Y = 90000 }, SouthWest = new Corner() { X = 10000, Y = 10000 } };
+                _airspace = new Airspace() { MaxAltitude = 20000, MinAltitude = 500, Northeast = new Corner() { X = 90000, Y = 90000 }, Southwest = new Corner() { X = 10000, Y = 10000 } };
                 //FileStream fs = new FileStream(@"...\...\...\", FileMode.Create);
                 //XmlSerializer serializer = new XmlSerializer(typeof(Airspace));
 
