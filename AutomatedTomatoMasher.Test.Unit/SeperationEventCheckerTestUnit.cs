@@ -102,6 +102,9 @@ namespace AutomatedTomatoMasher.Test.Unit
             var t1 = new Track(){Tag = "Tag1", Altitude = 5000, X = 10000, Y = 10000, Timestamp = new DateTime(1,1,1,1,1,1)};
             var t2 = new Track(){Tag = "Tag2", Altitude = 5000, X = 10000, Y = 10000, Timestamp = new DateTime(1,1,1,1,1,2)};
 
+            tracks.Add(t1);
+            tracks.Add(t2);
+
             // Act
             _uut.Check(tracks);
 
