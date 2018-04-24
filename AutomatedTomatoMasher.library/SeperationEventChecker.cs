@@ -23,7 +23,8 @@ namespace AutomatedTomatoMasher.library
                 {
                     if (track.Tag != tracks[i].Tag &&
                         Math.Abs(track.Altitude - tracks[i].Altitude) < 300
-                        && Math.Sqrt(Math.Pow(track.X - tracks[i].X,2) + Math.Pow(track.Y - tracks[i].Y,2)) < 5000)
+                        && Math.Sqrt(Math.Pow(track.X - tracks[i].X,2) + Math.Pow(track.Y - tracks[i].Y,2)) < 5000
+                        && track.Timestamp.Equals(tracks[i].Timestamp))
                         SeperationEvent?.Invoke(this, new SeperationEventArgs(new List<Track>(){track, tracks[i]}));
                 }
             }
