@@ -56,7 +56,7 @@ namespace AutomatedTomatoMasher.Test.Integration
             var fileText = File.ReadAllText(filePath + "SeperationLogFile.txt");
 
             //Assert
-            Assert.That(fileText, Is.EqualTo("Flights in Conflict: ATR423, ATR424\nTime stamp of conflict: 1996/12/12, at 12:12:12 and 12 milliseconds\r\n"));
+            Assert.That(fileText, Is.EqualTo("Flights in Conflict: ATR423, ATR424 \nTime stamp of conflict: 1996/12/12, at 12:12:12 and 12 milliseconds\r\n"));
         }
     }
 }

@@ -9,5 +9,6 @@ namespace AutomatedTomatoMasher.library.Interface
     public interface IOutput
     {
         void Write(List<Track> tracks);
+        void Write(List<Track> tracks, bool seperationEvent);
     }
 }
