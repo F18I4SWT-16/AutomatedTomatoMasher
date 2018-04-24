@@ -19,10 +19,8 @@ namespace AutomatedTomatoMasher.library
         {
             if (seperationEvent)
                 Console.WriteLine("DANGER! Following two flights in conflicts:");
-            foreach (var track in tracks)
-            {
-                Console.WriteLine(track.ToString());
-            }
+
+            Write(tracks);
         }
     }
 }

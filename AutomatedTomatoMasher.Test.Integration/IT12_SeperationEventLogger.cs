@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutomatedTomatoMasher.library;
 using AutomatedTomatoMasher.library.DTO;
-using AutomatedTomatoMasher.library.Event;
 using AutomatedTomatoMasher.library.Interface;
 using NSubstitute;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
+using TransponderReceiver;
 
 namespace AutomatedTomatoMasher.Test.Integration
 {
@@ -18,45 +13,93 @@ namespace AutomatedTomatoMasher.Test.Integration
     class IT12_SeperationEventLogger
     {
         private IOutput _output;
-        private ISeperationEventChecker _seperationEventChecker;
         private SeperationEventLogger _uut;
+        private TrackReciever _trackReciever;
+        private TrackObjectifier _trackObjectifier;
+        private ITransponderReceiver _transponderReceiver;
+        private TrackTransmitter _trackTransmitter;
+        private DateTimeBuilder _dateTimeBuilder;
+        private List<Track> _recievedTracks;
+        private AtmController _atmController;
+        private TrackWarehouse _trackWarehouse;
+        private CourseCalculator _courseCalculator;
+        private VelocityCalculator _velocityCalculator;
+        private SeperationEventChecker _seperationEventChecker;
+        private TracksManager _tracksManager;
+        private TagsManager _tagsManager;
+        private AirspaceChecker _airspaceChecker;
+        private Airspace _airspace;
+
+        private List<string> _list;
+        private string _filePath;
 
         [SetUp]
         public void Setup()
         {
+            //Arrange
             _output = Substitute.For<IOutput>();
-            _seperationEventChecker = Substitute.For<ISeperationEventChecker>();
+            
+            _filePath = @"...\...\...\";
+            FileStream output = new FileStream(_filePath + "SeperationLogFile.txt", FileMode.Create, FileAccess.Write);
+            StreamWriter fileWriter = new StreamWriter(output);
+            fileWriter.Write("");
+            fileWriter.Close();
+
+            _transponderReceiver = Substitute.For<ITransponderReceiver>();
+            _trackTransmitter = new TrackTransmitter();
+            _dateTimeBuilder = new DateTimeBuilder();
+
+            _trackObjectifier = new TrackObjectifier(_dateTimeBuilder);
+
+            _trackReciever = new TrackReciever(_transponderReceiver,
+                _trackObjectifier, _trackTransmitter);
+            _output = Substitute.For<IOutput>();
+            _tracksManager = new TracksManager();
+            _courseCalculator = new CourseCalculator();
+            _velocityCalculator = new VelocityCalculator();
+            _seperationEventChecker = new SeperationEventChecker();
+
+            _airspace = new Airspace() { MaxAltitude = 20000, MinAltitude = 500,
+                Northeast = new Corner() { X = 90000, Y = 90000 },
+                Southwest = new Corner() { X = 10000, Y = 10000 } };
+
+            _airspaceChecker = new AirspaceChecker(_airspace);
+            _tagsManager = new TagsManager(_airspaceChecker);
+            _trackWarehouse = new TrackWarehouse(_tagsManager, _courseCalculator,
+                _velocityCalculator, _tracksManager, _seperationEventChecker);
+            _atmController = new AtmController(_trackTransmitter, _output, _trackWarehouse);
+
             _uut = new SeperationEventLogger(_output, _seperationEventChecker);
+
+            _list = new List<string>
+            {
+                "ATR423;11000;11000;14000;20151006213456000",
+                "ATR424;11000;11000;14000;20151006213456000"
+            };
+
+            _trackTransmitter.TrackReady += (o, args) => { _recievedTracks = args.TrackList; };
+
+            //Act
+            _transponderReceiver.TransponderDataReady +=
+                Raise.EventWith(new RawTransponderDataEventArgs(_list));
         }
 
         [Test]
         public void Log_AddTwoFlightsOfConflict_LogsCorrect()
         {
-            //Arrange
-            string filePath = @"...\...\...\";
-            FileStream output = new FileStream(filePath + "SeperationLogFile.txt", FileMode.Create, FileAccess.Write);
-            StreamWriter fileWriter = new StreamWriter(output);
-            fileWriter.Write("");
-            fileWriter.Close();
-
-            Track track1 = new Track();
-            track1.Tag = "ATR423";
-            track1.Timestamp = new DateTime(1996, 12, 12, 12, 12, 12, 12);
-
-            Track track2 = new Track();
-            track2.Tag = "ATR424";
-            track2.Timestamp = new DateTime(1996, 12, 12, 12, 12, 12, 12);
-
-            List<Track> trackList = new List<Track>();
-            trackList.Add(track1);
-            trackList.Add(track2);
-
             //Act
-            _seperationEventChecker.SeperationEvent += Raise.EventWith(new SeperationEventArgs(trackList));
-            var fileText = File.ReadAllText(filePath + "SeperationLogFile.txt");
+            var fileText = File.ReadAllText(_filePath + "SeperationLogFile.txt");
 
             //Assert
-            Assert.That(fileText, Is.EqualTo("Flights in Conflict: ATR423, ATR424 \nTime stamp of conflict: 1996/12/12, at 12:12:12 and 12 milliseconds\r\n"));
+            Assert.That(fileText, Is.EqualTo("Flights in Conflict: ATR423, ATR424 \nTime stamp of conflict: 2015/10/6, at 21:34:56 and 0 milliseconds\r\n"));
+        }
+
+        [Test]
+        public void Log_AddTwoFlightsOfConflict_OutputCalled()
+        {
+            // Assert
+            _output.Received(1).Write(Arg.Is<List<Track>>(
+                x => x.Count == 2 && x[0].Tag == "ATR423" && x[1].Tag == "ATR424"), true);
         }
     }
 }
