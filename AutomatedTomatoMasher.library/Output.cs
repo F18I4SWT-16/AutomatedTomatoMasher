@@ -14,5 +14,16 @@ namespace AutomatedTomatoMasher.library
                 Console.WriteLine(track.ToString());
             }
         }
+
+        public void Write(List<Track> tracks, bool seperationEvent)
+        {
+            if (seperationEvent)
+                Console.WriteLine("DANGER! Flights in conflicts DANGER!\n");
+            foreach (var track in tracks)
+            {
+                Console.WriteLine(track.ToString());
+            }
+
+        }
     }
 }

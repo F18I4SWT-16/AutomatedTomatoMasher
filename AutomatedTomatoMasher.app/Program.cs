@@ -50,14 +50,11 @@ namespace AutomatedTomatoMasher.app
             ITracksManager tracksManager = new TracksManager();
             ITagsManager tagsManager = new TagsManager(airspaceChecker);
          
-
-
             ITrackWarehouse trackWarehouse = new TrackWarehouse(tagsManager, courseCalculator, velocityCalculator,
                 tracksManager, seperationEventChecker);
 
             AtmController atmController = new AtmController(trackTransmitter,output,trackWarehouse);
-
-
+            
             Console.ReadKey();
 
         }
