@@ -16,7 +16,7 @@ namespace AutomatedTomatoMasher.app
     {
         static void Main(string[] args)
         {
-            Airspace airspace = new Airspace();
+            var airspace = new Airspace();
             try
             {
                 AirspaceFileReader airspaceFileReader = new AirspaceFileReader();
@@ -25,43 +25,37 @@ namespace AutomatedTomatoMasher.app
             }
             catch (Exception e)
             {
-                
                 Console.WriteLine("Invalid Airspace" + e.ToString());
                 Console.ReadKey();
             }
 
-            ITransponderReceiver transponderReceiver = TransponderReceiverFactory.CreateTransponderDataReceiver();
+            var transponderReceiver = TransponderReceiverFactory.CreateTransponderDataReceiver();
 
-            IDateTimeBuilder dateTimeBuilder = new DateTimeBuilder();
-            ITrackObjectifier trackObjectifier = new TrackObjectifier(dateTimeBuilder);
+            var dateTimeBuilder = new DateTimeBuilder();
+            var trackObjectifier = new TrackObjectifier(dateTimeBuilder);
 
-            ITrackTransmitter trackTransmitter = new TrackTransmitter();
+            var trackTransmitter = new TrackTransmitter();
 
-            TrackReciever trackReciever = new TrackReciever(transponderReceiver, trackObjectifier, trackTransmitter);
+            var trackReciever = new TrackReciever(transponderReceiver, trackObjectifier, trackTransmitter);
 
-            IAirspaceChecker airspaceChecker = new AirspaceChecker(airspace);
+            var airspaceChecker = new AirspaceChecker(airspace);
 
-            ISeperationEventChecker seperationEventChecker = new SeperationEventChecker();
-            IOutput output = new Output();
-            ISeperationEventLogger seperationEventLogger = new SeperationEventLogger(output,seperationEventChecker);
+            var seperationEventChecker = new SeperationEventChecker();
+            var output = new Output();
+            var seperationEventLogger = new SeperationEventLogger(output,seperationEventChecker);
             
-            ICourseCalculator courseCalculator = new CourseCalculator();
-            IVelocityCalculator velocityCalculator = new VelocityCalculator();
-            ITracksManager tracksManager = new TracksManager();
-            ITagsManager tagsManager = new TagsManager(airspaceChecker);
-         
+            var courseCalculator = new CourseCalculator();
+            var velocityCalculator = new VelocityCalculator();
+            var tracksManager = new TracksManager();
+            var tagsManager = new TagsManager(airspaceChecker);
 
 
-            ITrackWarehouse trackWarehouse = new TrackWarehouse(tagsManager, courseCalculator, velocityCalculator,
+            var trackWarehouse = new TrackWarehouse(tagsManager, courseCalculator, velocityCalculator,
                 tracksManager, seperationEventChecker);
 
-            AtmController atmController = new AtmController(trackTransmitter,output,trackWarehouse);
-
+            var atmController = new AtmController(trackTransmitter,output,trackWarehouse);
 
             Console.ReadKey();
-
         }
-
-
     }
 }
